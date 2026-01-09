@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In / Register</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <link rel="stylesheet" href="lang-style/language.css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
+  <style>
+    /* Optimize ticker tape for all devices */
+    .tradingview-widget-container {
+      background: rgb(96, 37, 37) !important;
+      overflow: hidden !important;
+      contain: layout style paint;
+      min-height: 50px;
+    }
+
+    .tradingview-widget-container iframe {
+      height: 50px !important;
+      min-height: 50px !important;
+    }
+
+    /* Mobile: Show full ticker without restrictions */
+    @media (max-width: 768px) {
+      .tradingview-widget-container {
+        min-height: 45px;
+      }
+      
+      .tradingview-widget-container iframe {
+        height: 45px !important;
+        min-height: 45px !important;
+      }
+    }
+
+    /* Tablet/iPad */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .tradingview-widget-container {
+        min-height: 48px;
+      }
+      
+      .tradingview-widget-container iframe {
+        height: 48px !important;
+        min-height: 48px !important;
+      }
+    }
+
+    /* Desktop */
+    @media (min-width: 1025px) {
+      .tradingview-widget-container {
+        min-height: 50px;
+      }
+      
+      .tradingview-widget-container iframe {
+        height: 50px !important;
+        min-height: 50px !important;
+      }
+    }
+
+    /* Smartwatch */
+    @media (max-width: 319px) {
+      .tradingview-widget-container {
+        min-height: 40px;
+      }
+      
+      .tradingview-widget-container iframe {
+        height: 40px !important;
+        min-height: 40px !important;
+      }
+    }
+  </style>
+
+  <script>
+    // Initialize reCAPTCHA v3 with Production Key Support
+    const RECAPTCHA_PROD_SITE_KEY = 'YOUR_PRODUCTION_SITE_KEY_HERE'; // Replace with your production key
+    const RECAPTCHA_TEST_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+    
+    function onRecaptchaLoad() {
+      if (window.grecaptcha) {
+        const isProduction = RECAPTCHA_PROD_SITE_KEY !== 'YOUR_PRODUCTION_SITE_KEY_HERE';
+        const siteKey = isProduction ? RECAPTCHA_PROD_SITE_KEY : RECAPTCHA_TEST_SITE_KEY;
+        window.grecaptcha.ready(() => {
+          window.recaptchaReady = true;
+          window.recaptchaSiteKey = siteKey;
+        });
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+
+        <!-- TradingView Ticker Tape Widget (Optimized for all devices) -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+          "symbols"; [
+            {"title": "BTC/USD", "proName": "BITSTAMP:BTCUSD"},
+            {"title": "ETH/USD", "proName": "BITSTAMP:ETHUSD"},
+            {"title": "BNB/USD", "proName": "BINANCE:BNBUSD"},
+            {"title": "XRP/USD", "proName": "BITSTAMP:XRPUSD"},
+            {"title": "SOL/USD", "proName": "BITSTAMP:SOLUSD"},
+            {"title": "DOGE/USD", "proName": "BITSTAMP:DOGEUSD"},
+            {"title": "ADA/USD", "proName": "BITSTAMP:ADAUSD"},
+            {"title": "LINK/USD", "proName": "BITSTAMP:LINKUSD"},
+            {"title": "LTC/USD", "proName": "BITSTAMP:LTCUSD"},
+            {"title": "USD/EUR", "proName": "FX_IDC:EURUSD"},
+            {"title": "S&P 500", "proName": "OANDA:SPX500USD"},
+            {"title": "Nasdaq 100", "proName": "OANDA:NAS100USD"}
+          ],
+          "colorTheme"; "dark",
+          "isTransparent"; true,
+          "displayMode"; "adaptive",
+          "locale"; "en",
+          "showSymbolLogo"; true
+        }
+      </script>
+    </div>
+    <!-- TradingView Widget END -->
+
+
+    <nav>
+      <img src="./icoinred/logo-88256519050c5e84fcbd2120a81b2097.svg" alt="">
+      <ul>
+        <li class="botton mobile-only"><a href="index.html">HOME</a></li>
+        <li class="mobile-only"><a href="#login">LOGIN</a></li>
+        <li class="mobile-only"><a href="#register">REGISTER</a></li>
+        <li class="botton desktop-only"><a href="index.html">HOME</a></li>
+        <li class="desktop-only"><a href="#login">LOGIN</a></li>
+        <li class="desktop-only"><a href="#register">REGISTER</a></li>
+      </ul>
+    </nav>
+
+
+
+
+    <!-- <h1></h1> -->
+  </header>
+  <div class="body">
+    <div class="container">
+      <div class="tab-buttons">
+        <button id="registerTab" class="active">Register</button>
+        <button id="loginTab">Sign In</button>
+      </div>
+
+      <!-- Registration Form -->
+      <form id="registerForm" class="form active">
+        <div class="input-row row-one">
+          <div class="input-group">
+            <label>First Name <sup>*</sup></label>
+            <input type="text" id="regFirstName" required />
+          </div>
+          <div class="input-group">
+            <label>Last Name<sup>*</sup></label>
+            <input type="text" id="regLastName" required />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Email Address<sup>*</sup></label>
+          <input type="email" id="regEmail" required />
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label>Country of Residence*</label>
+            <input type="text" id="regCountry" placeholder="Search Country" required />
+          </div>
+          <div class="input-group">
+            <label>Country Code*</label>
+            <input type="text" id="regCountryCode" required />
+          </div>
+          <div class="input-group">
+            <label>Phone Number*</label>
+            <input type="tel" id="regPhone" required />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Main Currency*</label>
+          <select id="regCurrency" required>
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="regPassword" required />
+          </div>
+          <div class="input-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword" required />
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="bonus" />
+          <label for="bonus">I want to receive Deposit bonus promotions</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="policy" />
+          <label for="policy">I have read and accept the Treat Client Fairly Policy, Fisk Disclosure Statement, Privacy
+            Policy, Cient Funding and Withdrawal Policy, Cient Agreement. Confictofinterest Management Policy, Complaint
+            Policy, Best Execution Policy, Client Identification Policy, Stafutory Disclosure and the Cient Acceptance
+            Policy.</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agree" />
+          <label for="agree">I hereby acknowledge and agree that the company will keep and process my Personal Data for
+            regulatory purpose in accordance with GDPR</label>
+        </div>
+
+
+        <div class="captcha-container">
+          <!--
+            Using Google's reCAPTCHA test site key for local development.
+            The test key always passes verification and is safe to use on localhost:
+            Site key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+            Secret key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+            Replace with your production site key when deploying and configure domains
+            in the Google reCAPTCHA admin console.
+          -->
+          <!--
+            You can put your production site key into the `data-prod-sitekey` attribute below
+            (leave blank for now). The JS will prefer it in non-dev environments.
+            Example: data-prod-sitekey="YOUR_PRODUCTION_SITE_KEY"
+          -->
+          <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-prod-sitekey=""></div>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <div id="registerMessage" class="form-message" aria-live="polite"></div>
+
+        <p class="signin-text">
+          Already registered?
+          <a href="#login" id="signinLink">Sign In Here</a>
+        </p>
+      </form>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="form">
+        <div class="input-group">
+          <label>Email Address*</label>
+          <input type="email" id="loginEmail" required />
+        </div>
+        <div class="input-group">
+          <label>Password*</label>
+          <input type="password" id="loginPassword" required />
+        </div>
+
+        <div class="options">
+          <label><input type="checkbox" id="rememberMe"> Remember me</label>
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="captcha-container">
+          <!--
+            Using Google's reCAPTCHA test site key for local development.
+            The test key always passes verification and is safe to use on localhost:
+            Site key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+            Secret key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+            Replace with your production site key when deploying and configure domains
+            in the Google reCAPTCHA admin console.
+          -->
+          <!--
+            You can put your production site key into the `data-prod-sitekey` attribute below
+            (leave blank for now). The JS will prefer it in non-dev environments.
+            Example: data-prod-sitekey="YOUR_PRODUCTION_SITE_KEY"
+          -->
+          <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-prod-sitekey=""></div>
+        </div>
+        <button type="submit" class="btn">Sign In</button>
+        <div id="loginMessage" class="form-message" aria-live="polite"></div>
+        <p class="signup-text">
+          Don't have an account? <a href="#register">Sign up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script src="auth-service.js"></script>
+  <script src="auth.js"></script>
+  <script src="lang-style/language.js"></script>
+<!-- START: Mobile Menu Injected by updater -->
+<style>
+/* Mobile menu minimal styles (injected) */
+.mobile-navbar { display: none; position: fixed; top:0; left:0; right:0; background:#0b0b0b; color:#fff; z-index:9999; padding:12px 16px; align-items:center; justify-content:space-between; }
+.mobile-navbar .logo { font-weight:700; display:flex; align-items:center; gap:8px; }
+.mobile-navbar .logo img { height:36px; width:auto; display:block; }
+@media (max-width:420px){ .mobile-navbar .logo img { height:28px; } }
+.mobile-menu-btn { font-size:22px; cursor:pointer; }
+.mobile-menu-panel { position:fixed; top:0; right:0; width:75%; height:100%; background:#070707; padding:70px 20px; z-index:9998; overflow:auto; transform: translateX(100%); transition: transform 280ms ease; }
+.mobile-menu-panel a { display:block; color:#fff; padding:12px 0; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.04); }
+.mobile-menu-panel.active { transform: translateX(0); }
+/* Hide mobile-only items by default and show at small screens */
+.mobile-only { display: none; }
+@media (max-width: 768px) { .mobile-navbar{ display:flex } .desktop-only { display:none !important } .mobile-only { display:block !important } }
+</style>
+
+<div class="mobile-navbar">
+  <div class="logo"><img src="icoinred/logo-88256519050c5e84fcbd2120a81b2097.svg" alt="BKCHANGE logo"></div>
+  <div class="mobile-menu-btn" id="mobileMenuToggle">☰</div>
+</div>
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <a href="index.html">Home</a>
+  <a href="#login">Login</a>
+  <a href="#register">Sign Up</a>
+  <a href="about.contact/about.html">About / Contact</a>
+</div>
+
+<script>
+// Mobile menu: ensure clicking the hamburger closes the panel and links hide it
+(function(){
+  const btn = document.getElementById('mobileMenuToggle');
+  const panel = document.getElementById('mobileMenuPanel');
+  if(!btn || !panel) return;
+
+  function toggle(){
+    if(panel.classList.contains('active')) panel.classList.remove('active');
+    else panel.classList.add('active');
+  }
+
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  panel.addEventListener('click', function(e){ e.stopPropagation(); });
+  panel.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ panel.classList.remove('active'); }); });
+  document.addEventListener('click', function(e){ if(panel.classList.contains('active') && !panel.contains(e.target) && !btn.contains(e.target)) panel.classList.remove('active'); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' || e.key === 'Esc'){ panel.classList.remove('active'); } });
+})();
+</script>
+  <script src="./frontend-api-client.js"></script>
+  <script src="./auth-api.js"></script>
+  <script src="./frontend-api.js"></script>
+  <!-- END: Mobile Menu Injected by updater -->
+</body>
+
+</html>

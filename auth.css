@@ -1,0 +1,963 @@
+.body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    /* background-color: #0a0f2c; */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* margin-top: 80px; */
+    margin-top: -160px;
+}
+
+body {
+    background-image: url("./Image/mobile/1920_x_988.jpg");
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+}
+
+header nav {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1em;
+    padding-inline: 2em;
+    padding-bottom: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+}
+
+.botton a {
+    background-color: white;
+    color: black;
+    padding-block: 0.5em;
+    border-radius: 30px;
+    padding-inline: 2em
+}
+
+.botton:hover a {
+    color: white;
+    background-color: rgb(81, 78, 74);
+}
+
+sup {
+    color: rgb(183, 178, 172);
+}
+
+
+.container {
+    background-color: rgb(96, 37, 37);
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 0 20px rgba(181, 178, 178, 0.1);
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-buttons button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 18px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-buttons button.active {
+    color: #fff;
+    border-color: rgb(183, 178, 172);
+}
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: block;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #aaa;
+}
+
+
+.input-group input,
+.input-group select {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: black;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: rgb(130, 114, 97);
+}
+
+.input-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Make each input-group share available space equally and allow proper shrinking
+   when there isn't enough room (flex-basis: 0 ensures equal distribution). */
+.input-row .input-group {
+    flex: 1 1 0;
+    min-width: 0;
+    /* allow children to shrink below their contents if needed */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #ddd;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+
+.btn {
+    width: 100%;
+    justify-content: center;
+    background-color: rgb(130, 114, 97);
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: rgb(183, 178, 172);
+}
+
+/* CAPTCHA container: center the captcha, avoid overflow, and scale on small screens */
+.captcha-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0;
+    min-width: 0;
+    flex-wrap: wrap;
+}
+
+.captcha-container .g-recaptcha {
+    transform-origin: 0 0;
+    margin: 0;
+}
+
+/* Slightly scale reCAPTCHA on narrow viewports so it doesn't break layout */
+@media (max-width: 420px) {
+    .captcha-container .g-recaptcha {
+        transform: scale(0.85);
+    }
+}
+
+@media (max-width: 360px) {
+    .captcha-container .g-recaptcha {
+        transform: scale(0.75);
+    }
+}
+
+/* Show validation tip for captcha if present */
+.captcha-container .wpcf7-not-valid-tip,
+.captcha-container .wpcf7-form-control-wrap .wpcf7-not-valid-tip {
+    display: block;
+    color: #ff6b6b;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* Small banner shown in development when the test reCAPTCHA key is active */
+/* dev banner styling removed — banner insertion disabled in JS */
+
+/* Sign-in hint below register button */
+.signin-text {
+    text-align: center;
+    color: #cfcfcf;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.signin-text a#signinLink {
+    color: rgb(130, 114, 97);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+.signin-text a#signinLink:hover,
+.signin-text a#signinLink:focus {
+    text-decoration: underline;
+    color: rgb(110, 95, 80);
+}
+
+@media (max-width: 420px) {
+    .signin-text {
+        font-size: 14px;
+    }
+
+    .signin-text a#signinLink {
+        display: inline-block;
+        margin-top: 6px;
+    }
+}
+
+/* Sign-up hint below login/other buttons (matches sign-in styling) */
+.signup-text {
+    text-align: center;
+    color: #cfcfcf;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.signup-text a {
+    color: rgb(130, 114, 97);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+.signup-text a:hover,
+.signup-text a:focus {
+    text-decoration: underline;
+    color: rgb(110, 95, 80);
+}
+
+@media (max-width: 420px) {
+    .signup-text {
+        font-size: 14px;
+    }
+
+    .signup-text a {
+        display: inline-block;
+        margin-top: 6px;
+    }
+}
+
+/* Login form options: remember checkbox and forgot-password link */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0 18px 0;
+    color: #ddd;
+    font-size: 13px;
+}
+
+.options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.options input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: rgb(130, 114, 97);
+    cursor: pointer;
+}
+
+.options a {
+    color: rgb(130, 114, 97);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.options a:hover,
+.options a:focus {
+    text-decoration: underline;
+    color: rgb(110, 95, 80);
+}
+
+@media (max-width: 480px) {
+    .options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .options a {
+        margin-left: 24px;
+    }
+}
+
+/* Hide reCAPTCHA test banner */
+.grecaptcha-badge {
+    visibility: hidden !important;
+}
+
+body .grecaptcha-badge {
+    display: none !important;
+}
+
+/* ============ DESKTOP STYLES (1025px and above) ============ */
+@media (min-width: 1025px) {
+    .body {
+        margin-top: -370px;
+        min-height: 100vh;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 800px;
+        padding: 40px;
+        background-color: rgb(96, 37, 37);
+        border-radius: 12px;
+    }
+
+    .tab-buttons button {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+    .input-row {
+        gap: 15px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    header nav {
+        display: flex;
+        padding-top: 1em;
+        padding-inline: 2em;
+    }
+
+    nav ul {
+        gap: 30px;
+    }
+}
+
+/* ============ TABLET / IPAD STYLES (769px - 1024px) ============ */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .body {
+        margin-top: -1000px;
+        min-height: 100vh;
+    }
+
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .container {
+        width: 85%;
+        max-width: 700px;
+        padding: 35px;
+        background-color: rgb(96, 37, 37);
+        border-radius: 12px;
+    }
+
+    .tab-buttons {
+        margin-bottom: 20px;
+    }
+
+    .tab-buttons button {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+
+    .input-group {
+        margin-bottom: 14px;
+    }
+
+    .input-group label {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .input-row {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .input-row .input-group {
+        flex: 1 1 0;
+        min-width: 180px;
+    }
+
+    .checkbox-group {
+        font-size: 12px;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        font-size: 15px;
+        padding: 11px;
+    }
+
+    .signin-text,
+    .signup-text {
+        font-size: 12px;
+    }
+
+    header nav {
+        padding-inline: 1.5em;
+    }
+
+    nav ul {
+        gap: 20px;
+    }
+
+    header nav ul li a {
+        font-size: 14px;
+    }
+
+    .tradingview-widget-container {
+        height: 50px !important;
+        overflow: hidden;
+    }
+}
+
+/* ============ MOBILE LANDSCAPE (768px and below) ============ */
+@media (max-width: 768px) {
+    body {
+        background-size: cover;
+        background-position: center;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    header {
+        padding-top: 0;
+        height: auto;
+        background: none;
+    }
+
+    header nav {
+        display: none !important;
+    }
+
+    .body {
+        margin-top: 60px;
+        margin-bottom: 160px;
+        min-height: auto;
+    }
+
+    .container {
+        width: 92%;
+        max-width: 600px;
+        padding: 25px;
+        background-color: rgba(96, 37, 37, 0.95);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+    }
+
+    .tab-buttons {
+        margin-bottom: 18px;
+    }
+
+    .tab-buttons button {
+        font-size: 15px;
+        padding: 8px 16px;
+    }
+
+    .input-group {
+        margin-bottom: 12px;
+    }
+
+    .input-group label {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 9px;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    .input-row {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .input-row .input-group {
+        flex: 1 1 calc(50% - 5px);
+        min-width: 0;
+    }
+
+    .checkbox-group {
+        font-size: 12px;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .checkbox-group input {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .signin-text,
+    .signup-text {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .captcha-container {
+        margin: 12px 0;
+    }
+
+    .captcha-container .g-recaptcha {
+        transform: scale(0.9);
+        transform-origin: center;
+    }
+
+    .options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin: 10px 0 15px 0;
+        font-size: 12px;
+    }
+
+    .options a {
+        margin-left: 24px;
+    }
+
+    .tradingview-widget-container {
+        height: 45px !important;
+        overflow: hidden;
+    }
+
+    .tradingview-widget-container__widget {
+        height: 45px !important;
+    }
+}
+
+/* ============ MOBILE PORTRAIT - MEDIUM (481px - 768px) ============ */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: 85%;
+        max-width: 550px;
+        padding: 28px;
+    }
+
+    .tab-buttons button {
+        font-size: 15px;
+        padding: 9px 18px;
+    }
+
+    .input-group label {
+        font-size: 13px;
+    }
+
+    .input-row .input-group {
+        flex: 1 1 calc(50% - 6px);
+    }
+
+    .btn {
+        font-size: 15px;
+        padding: 11px;
+    }
+
+    .captcha-container .g-recaptcha {
+        transform: scale(0.95);
+    }
+}
+
+/* ============ MOBILE PORTRAIT - SMALL (426px - 480px) ============ */
+@media (min-width: 426px) and (max-width: 480px) {
+    .body {
+        margin-top: 150px;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 450px;
+        padding: 20px;
+    }
+
+    .tab-buttons button {
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+
+    .input-group {
+        margin-bottom: 11px;
+    }
+
+    .input-group label {
+        font-size: 12px;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .input-row .input-group {
+        flex: 1 1 calc(50% - 5px);
+    }
+
+    .checkbox-group {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 9px;
+    }
+
+    .signin-text,
+    .signup-text {
+        font-size: 11px;
+    }
+
+    .captcha-container .g-recaptcha {
+        transform: scale(0.85);
+    }
+
+    .options {
+        font-size: 11px;
+    }
+}
+
+/* ============ MOBILE PORTRAIT - EXTRA SMALL (320px - 425px) ============ */
+@media (max-width: 425px) {
+    body {
+        background-size: cover;
+        background-position: center top;
+        overflow-x: hidden;
+    }
+
+    header {
+        display: none;
+    }
+
+    .body {
+        margin-top: 130px;
+        margin-bottom: 15px;
+        padding: 0 12px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 18px;
+        background-color: rgba(96, 37, 37, 0.97);
+        border-radius: 8px;
+    }
+
+    .tab-buttons {
+        margin-bottom: 16px;
+        gap: 0;
+    }
+
+    .tab-buttons button {
+        font-size: 13px;
+        padding: 7px 12px;
+        flex: 1;
+        text-align: center;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    .input-group label {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 7px 8px;
+        font-size: 13px;
+        border-radius: 4px;
+    }
+
+    .input-row {
+        gap: 8px;
+    }
+
+    .input-row .input-group {
+        flex: 1 1 calc(50% - 4px);
+        min-width: 0;
+    }
+
+    /* Make all inputs single column on extra small screens */
+    .input-row.row-one .input-group {
+        flex: 1 1 100%;
+    }
+
+    .checkbox-group {
+        font-size: 10px;
+        gap: 6px;
+        margin-bottom: 9px;
+        line-height: 1.3;
+    }
+
+    .checkbox-group input {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 8px;
+        width: 100%;
+    }
+
+    .signin-text,
+    .signup-text {
+        font-size: 10px;
+        margin-top: 8px;
+        line-height: 1.4;
+    }
+
+    .captcha-container {
+        margin: 10px 0;
+        padding: 0 -18px;
+    }
+
+    .captcha-container .g-recaptcha {
+        transform: scale(0.75);
+        transform-origin: center;
+        margin: -20px 0;
+    }
+
+    .options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin: 8px 0 12px 0;
+        font-size: 10px;
+    }
+
+    .options input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+    }
+
+    .options a {
+        margin-left: 20px;
+        font-size: 10px;
+    }
+
+    .tradingview-widget-container {
+        height: 40px !important;
+        overflow: hidden;
+    }
+
+    sup {
+        font-size: 8px;
+    }
+
+    .form-message {
+        font-size: 11px;
+    }
+}
+
+/* ============ SMARTWATCH / ULTRA-SMALL (Below 320px) ============ */
+@media (max-width: 319px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .body {
+        margin-top: 45px;
+        margin-bottom: 12px;
+        padding: 0 8px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 12px;
+        background-color: rgba(96, 37, 37, 0.98);
+        border-radius: 6px;
+    }
+
+    .tab-buttons {
+        margin-bottom: 12px;
+    }
+
+    .tab-buttons button {
+        font-size: 11px;
+        padding: 5px 8px;
+        flex: 1;
+    }
+
+    .input-group {
+        margin-bottom: 8px;
+    }
+
+    .input-group label {
+        font-size: 9px;
+        margin-bottom: 2px;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 5px 6px;
+        font-size: 11px;
+        border-radius: 3px;
+    }
+
+    .input-row {
+        gap: 6px;
+    }
+
+    .input-row .input-group {
+        flex: 1 1 calc(50% - 3px);
+    }
+
+    .input-row.row-one .input-group {
+        flex: 1 1 100%;
+    }
+
+    .checkbox-group {
+        font-size: 8px;
+        gap: 4px;
+        margin-bottom: 7px;
+        line-height: 1.2;
+    }
+
+    .checkbox-group input {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+    }
+
+    .btn {
+        font-size: 11px;
+        padding: 6px;
+    }
+
+    .signin-text,
+    .signup-text {
+        font-size: 8px;
+        margin-top: 6px;
+        line-height: 1.3;
+    }
+
+    .captcha-container .g-recaptcha {
+        transform: scale(0.65);
+        margin: -30px 0;
+    }
+
+    .options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin: 6px 0 10px 0;
+        font-size: 8px;
+    }
+
+    .options input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .options a {
+        margin-left: 18px;
+        font-size: 8px;
+    }
+
+    .tradingview-widget-container {
+        height: 30px !important;
+        overflow: hidden;
+    }
+
+    .tradingview-widget-copyright {
+        font-size: 8px !important;
+        margin-top: 2px;
+    }
+
+    sup {
+        font-size: 6px;
+    }
+
+    .form-message {
+        font-size: 9px;
+    }
+
+    /* Hide some elements on smartwatch for better UX */
+    .input-row.row-one {
+        flex-direction: column;
+    }
+
+    .input-row.row-one .input-group {
+        flex: 1 1 100%;
+    }
+
+    /* Hide excessive explanatory text */
+    .column ul li {
+        margin-bottom: 2px;
+    }
+}

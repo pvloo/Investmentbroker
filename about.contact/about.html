@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>River Trade Investment — About</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous" defer></script>
+  <!-- If you don't have a FontAwesome kit, remove above script and use simple text/icons -->
+
+  <style>
+    /* =========================
+       Variables & base
+       ========================= */
+    :root{
+      --bg: #090616;
+      --panel: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      --muted: #bdb3c5;
+      --accent: rgb(96, 37, 37); /* orange */
+      --accent-2: rgb(96, 37, 37);
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.02);
+      --glass-border: rgba(255,255,255,0.04);
+      --success: #20c997;
+      --glass-glow: 0 6px 18px rgba(255,125,36,0.06);
+      --radius: 14px;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+    html,body { height:100%; }
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(120,80,200,0.03), transparent),
+                  linear-gradient(180deg, #090616 0%, #0d0814 100%);
+      color: #e9e4ef;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:60px;
+    }
+
+    a { color: inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* =========================
+       Header / nav
+       ========================= */
+    header.site-header{
+      position:sticky; top:0; z-index:60;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(7,5,12,0.65), rgba(7,5,12,0.5));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      padding:14px 28px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+
+    .brand {
+      display:flex; gap:16px; align-items:center;
+    }
+    .brand .logo {
+      height:38px; width:38px; border-radius:8px;
+      background: linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; color:white;
+      box-shadow: var(--glass-glow);
+      font-size:16px;
+    }
+    .brand h1 { margin:0; font-size:16px; font-weight:700; letter-spacing:0.2px; color:#fff; }
+    .brand p { margin:0; font-size:12px; color:var(--muted); }
+
+    nav.main-nav{
+      display:flex; gap:14px; align-items:center;
+    }
+    nav.main-nav a { padding:10px 12px; border-radius:10px; color:var(--muted); font-weight:600; font-size:14px; }
+    nav.main-nav a.active { color:var(--accent); box-shadow: inset 0 -2px 0 var(--accent); background: rgba(255,255,255,0.005); }
+
+    .header-actions { display:flex; gap:10px; align-items:center; }
+    .btn {
+      padding:8px 14px; border-radius:10px; font-weight:700; font-size:14px;
+      border: 1px solid transparent;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#101014;
+      box-shadow: 0 10px 30px rgba(255,125,36,0.08);
+    }
+    .btn-secondary{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Mobile toggle */
+    .mobile-toggle{
+      display:none;
+      background:transparent; border:0; color:var(--muted); font-size:20px;
+    }
+
+    /* =========================
+       Page container & layout
+       ========================= */
+    .container {
+      max-width:1200px;
+      margin:28px auto;
+      padding:0 20px;
+    }
+
+    .hero {
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+      margin-bottom:28px;
+    }
+
+    /* Left column (mission) */
+    .section-title {
+      display:flex; align-items:baseline; gap:18px;
+    }
+    .kicker { color:var(--accent); font-weight:800; font-size:28px; }
+    h2.title { margin:8px 0 14px; font-size:36px; color:#fff; letter-spacing:0.2px; }
+    p.lead { color:var(--muted); max-width:780px; }
+
+    .cards {
+      margin-top:20px; display:grid; gap:18px;
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius:var(--radius);
+      padding:20px;
+      border:1px solid var(--glass-border);
+      box-shadow: 0 8px 24px rgba(4,3,8,0.6);
+    }
+
+    .card.with-accent {
+      position:relative;
+      padding-left:20px;
+      border-left:6px solid var(--accent);
+    }
+    .card.with-accent.purple {
+      border-left-color: #8b5cf6;
+    }
+
+    .card h3 { margin:0 0 8px; font-size:18px; color:#fff; }
+    .card p { margin:0; color:var(--muted); font-size:14px; }
+
+    /* Right column (stats) */
+    .stats {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));
+      border-radius:16px;
+      padding:20px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .stats .stats-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .stats .stats-head h3 { margin:0; font-size:20px; }
+    .badge {
+      background:rgba(255,255,255,0.02); padding:8px 10px; border-radius:999px; color:var(--muted); font-weight:700; font-size:13px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    .stat-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    }
+    .stat-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.01));
+      padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.02);
+    }
+    .stat-card .num { font-size:28px; font-weight:800; color:var(--accent); }
+    .stat-card small { color:var(--muted); display:block; margin-top:6px; font-weight:700; }
+    .stat-card .muted { color:var(--muted); font-size:13px; margin-top:8px; display:flex; gap:8px; align-items:center; }
+
+    /* timeline/values */
+    .section { margin-top:34px; }
+    .grid-3 {
+      display:grid; grid-template-columns: repeat(3,1fr); gap:18px;
+    }
+    .value-card { background:var(--card); padding:18px; border-radius:12px; border:1px solid var(--glass-border); }
+    .value-card h4 { margin:0 0 8px; color:#fff; }
+    .value-card p { margin:0; color:var(--muted); font-size:14px; }
+
+    /* team */
+    .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:18px; }
+    .member { background:var(--card); padding:14px; border-radius:12px; text-align:left; border:1px solid rgba(255,255,255,0.02); }
+    .member .avatar { width:64px; height:64px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#101014; font-weight:800; display:inline-flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:8px; }
+    .member h5 { margin:6px 0 2px; font-size:16px; }
+    .member p.role { margin:0; color:var(--muted); font-size:13px; }
+
+    /* testimonials (simple cards) */
+    .testimonials { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; margin-top:18px; }
+    .testimonial { background:var(--card); padding:16px; border-radius:12px; border:1px solid rgba(255,255,255,0.02); }
+
+    /* CTA */
+    .cta {
+      margin-top:28px; display:flex; gap:18px; align-items:center; justify-content:space-between;
+      padding:18px; border-radius:12px; background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* ============ DESKTOP STYLES (1025px and above) ============ */
+    @media (min-width: 1025px){
+      .hero { grid-template-columns: 1fr 420px; gap:28px; }
+      .stats { order: 0; }
+      .team-grid { grid-template-columns: repeat(4,1fr); }
+      .testimonials { grid-template-columns: repeat(3,1fr); }
+      .grid-3 { grid-template-columns: repeat(3,1fr); }
+      nav.main-nav { display:flex; }
+      .mobile-toggle { display:none; }
+      .header-actions { gap:10px; }
+      .container { max-width:1200px; padding:0 20px; }
+    }
+
+    /* ============ TABLET / IPAD STYLES (769px - 1024px) ============ */
+    @media (min-width: 769px) and (max-width: 1024px){
+      .container { max-width:900px; padding:0 18px; }
+      .hero { grid-template-columns: 1fr; }
+      .stats { order: -1; margin-bottom:18px; }
+      .team-grid { grid-template-columns: repeat(2,1fr); gap:16px; }
+      .testimonials { grid-template-columns: 1fr; gap:12px; }
+      .grid-3 { grid-template-columns: repeat(2,1fr); gap:14px; }
+      h2.title { font-size:32px; }
+      .card { padding:18px; }
+      .member .avatar { width:64px; height:64px; }
+      nav.main-nav { display:none; }
+      .mobile-toggle { display:inline-flex; }
+      .header-actions { gap:8px; }
+      .mobile-only { display:block !important; }
+    }
+
+    /* ============ MOBILE LANDSCAPE (481px - 768px) ============ */
+    @media (min-width: 481px) and (max-width: 768px){
+      .container { max-width:100%; padding:0 16px; }
+      body { padding-bottom:40px; }
+      header.site-header { padding:12px 16px; }
+      .brand h1 { font-size:15px; }
+      .hero { grid-template-columns: 1fr; gap:18px; }
+      .stats { margin-bottom:16px; padding:16px; }
+      h2.title { font-size:28px; margin:6px 0 10px; }
+      .kicker { font-size:24px; }
+      .cards { gap:14px; }
+      .card { padding:14px; }
+      .team-grid { grid-template-columns: repeat(2,1fr); gap:12px; }
+      .member { padding:12px; }
+      .member .avatar { width:56px; height:56px; font-size:16px; }
+      .testimonials { grid-template-columns: 1fr; gap:10px; }
+      .testimonial { padding:14px; }
+      .grid-3 { grid-template-columns: repeat(2,1fr); gap:12px; }
+      .value-card { padding:14px; }
+      .stat-card { padding:14px; }
+      .stat-card .num { font-size:24px; }
+      nav.main-nav { display:none; }
+      .mobile-toggle { display:inline-flex; }
+      .header-actions { gap:6px; }
+      .mobile-only { display:block !important; }
+      .btn { padding:7px 12px; font-size:13px; }
+    }
+
+    /* ============ MOBILE PORTRAIT - SMALL (320px - 480px) ============ */
+    @media (max-width: 480px){
+      .container { max-width:100%; padding:0 12px; }
+      body { padding-bottom:30px; }
+      header.site-header { padding:10px 12px; }
+      .site-header { position:relative; }
+      .brand h1 { font-size:13px; }
+      .brand .logo { height:32px; width:32px; font-size:14px; }
+      .hero { grid-template-columns: 1fr; gap:14px; }
+      .stats { margin-bottom:14px; padding:14px; }
+      h2.title { font-size:24px; margin:4px 0 8px; letter-spacing:0; }
+      .kicker { font-size:20px; gap:10px; }
+      .section-title { gap:12px; }
+      .cards { gap:12px; }
+      .card { padding:12px; border-radius:10px; }
+      .card h3 { font-size:15px; margin:0 0 6px; }
+      .card p { font-size:13px; }
+      .card.with-accent { padding-left:14px; border-left:5px solid var(--accent); }
+      .lead { font-size:14px; }
+      .team-grid { grid-template-columns: 1fr; gap:10px; }
+      .member { padding:10px; }
+      .member .avatar { width:48px; height:48px; font-size:14px; margin-bottom:6px; }
+      .member h5 { font-size:14px; margin:4px 0 2px; }
+      .member p.role { font-size:12px; }
+      .testimonials { grid-template-columns: 1fr; gap:10px; }
+      .testimonial { padding:12px; }
+      .testimonial p { font-size:13px; }
+      .grid-3 { grid-template-columns: 1fr; gap:10px; }
+      .value-card { padding:12px; }
+      .value-card h4 { font-size:14px; }
+      .value-card p { font-size:12px; }
+      .stat-card { padding:12px; }
+      .stat-card .num { font-size:20px; }
+      .stat-card small { font-size:11px; }
+      .stat-card .muted { font-size:11px; }
+      .stats .stats-head { flex-direction:column; align-items:flex-start; gap:8px; }
+      .stats .stats-head h3 { font-size:16px; }
+      .badge { font-size:11px; padding:6px 8px; }
+      .stat-grid { grid-template-columns: 1fr; gap:10px; }
+      .cta { flex-direction:column; align-items:flex-start; gap:12px; padding:14px; }
+      .cta div:last-child { display:flex; flex-direction:column; gap:8px; width:100%; }
+      .btn { padding:6px 12px; font-size:12px; width:auto; }
+      .section { margin-top:24px; }
+      nav.main-nav { display:none; }
+      .mobile-toggle { display:inline-flex; }
+      .header-actions { gap:4px; }
+      .mobile-only { display:block !important; }
+      p.lead { max-width:100%; }
+    }
+
+    /* ============ SMARTWATCH / ULTRA-SMALL (Below 320px) ============ */
+    @media (max-width: 319px){
+      .container { max-width:100%; padding:0 8px; }
+      body { padding-bottom:20px; }
+      header.site-header { padding:8px; }
+      .site-header { position:relative; }
+      .brand h1 { font-size:11px; }
+      .brand .logo { height:28px; width:28px; font-size:12px; }
+      .hero { grid-template-columns: 1fr; gap:10px; }
+      .stats { margin-bottom:10px; padding:10px; }
+      h2.title { font-size:18px; margin:2px 0 6px; }
+      .kicker { font-size:16px; gap:8px; }
+      .section-title { gap:8px; flex-wrap:wrap; }
+      .cards { gap:8px; }
+      .card { padding:8px; border-radius:8px; }
+      .card h3 { font-size:12px; margin:0 0 4px; }
+      .card p { font-size:11px; line-height:1.3; }
+      .card.with-accent { padding-left:10px; border-left:4px solid var(--accent); }
+      .lead { font-size:12px; line-height:1.4; }
+      .team-grid { grid-template-columns: 1fr; gap:8px; }
+      .member { padding:8px; border-radius:8px; }
+      .member .avatar { width:40px; height:40px; font-size:11px; margin-bottom:4px; }
+      .member h5 { font-size:11px; margin:2px 0 1px; }
+      .member p.role { font-size:10px; }
+      .member p { font-size:10px; }
+      .testimonials { grid-template-columns: 1fr; gap:8px; }
+      .testimonial { padding:8px; border-radius:8px; }
+      .testimonial p { font-size:11px; }
+      .grid-3 { grid-template-columns: 1fr; gap:8px; }
+      .value-card { padding:8px; border-radius:8px; }
+      .value-card h4 { font-size:11px; }
+      .value-card p { font-size:10px; }
+      .stat-card { padding:8px; }
+      .stat-card .num { font-size:16px; }
+      .stat-card small { font-size:9px; }
+      .stat-card .muted { font-size:9px; }
+      .stats .stats-head { flex-direction:column; align-items:flex-start; gap:6px; }
+      .stats .stats-head h3 { font-size:13px; }
+      .badge { font-size:9px; padding:4px 6px; }
+      .stat-grid { grid-template-columns: 1fr; gap:8px; }
+      .cta { flex-direction:column; align-items:flex-start; gap:8px; padding:8px; }
+      .cta h3 { font-size:13px; margin:0 0 4px; }
+      .cta p { font-size:10px; }
+      .cta div:last-child { display:flex; flex-direction:column; gap:6px; width:100%; }
+      .btn { padding:5px 10px; font-size:10px; width:auto; }
+      .section { margin-top:16px; }
+      nav.main-nav { display:none; }
+      .mobile-toggle { display:inline-flex; font-size:16px; }
+      .header-actions { gap:3px; }
+      .mobile-only { display:block !important; }
+      p.lead { max-width:100%; }
+    }
+
+    /* Animations & reveal */
+    .reveal { opacity:0; transform: translateY(8px); transition: all 520ms cubic-bezier(.2,.9,.2,1); will-change:transform,opacity; }
+    .reveal.visible { opacity:1; transform: translateY(0); }
+    .stat-count { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">
+      <!-- <div class="logo" aria-hidden>RT</div> -->
+      <div>
+        <!-- <h1>River Trade</h1> -->
+      </div>
+    </div>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-expanded="false" aria-label="Open menu">
+      <i class="fas fa-bars" aria-hidden></i>
+    </button>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="../index.html#home" class="mobile-only">Home</a>
+      <a href="about.html#about" class="active">About</a>
+      <a href="contact.html#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="../auth.html#login" class="btn btn-secondary">Login</a>
+      <a href="../auth.html#register" class="btn btn-primary">Sign Up</a>
+    </div>
+  </header>
+
+  <!-- Mobile menu (hidden on desktop) -->
+  <div id="mobileMenu" style="display:none; background:linear-gradient(180deg, rgba(10,8,16,0.95), rgba(10,8,16,0.98)); border-bottom:1px solid rgba(255,255,255,0.02);">
+    <div class="container" style="padding:12px 20px;">
+      <a href="../index.html#home" style="display:block; padding:10px 0; color:var(--muted)">Home</a>
+      <a href="../auth.html#login" style="display:block; padding:10px 0; color:var(--muted)">Login</a>
+      <a href="../auth.html#register" style="display:block; padding:10px 0; color:var(--muted)">Sign Up</a>
+      <a href="/markets" style="display:block; padding:10px 0; color:var(--muted)">Markets</a>
+      <a href="/trade" style="display:block; padding:10px 0; color:var(--muted)">Trade</a>
+      <a href="/about" style="display:block; padding:10px 0; color:var(--accent); font-weight:700">About</a>
+      <a href="/contact" style="display:block; padding:10px 0; color:var(--muted)">Contact</a>
+    </div>
+  </div>
+
+  <main class="container" id="about">
+    <section class="hero">
+      <!-- left: mission & text -->
+      <div>
+        <div class="section-title reveal" style="--delay:0ms">
+          <div class="kicker">Our</div>
+          <h2 class="title">Mission & Vision</h2>
+        </div>
+
+        <p class="lead reveal" style="--delay:60ms">
+          Empowering traders with cutting-edge technology and innovative solutions. We focus on security, UX, and broad market access — delivering tools that make trading accessible to everyone.
+        </p>
+
+        <div class="cards">
+          <article class="card with-accent reveal" style="--delay:120ms" aria-labelledby="missionTitle">
+            <h3 id="missionTitle">Our Mission</h3>
+            <p>To democratize trading by providing accessible, powerful tools that empower individuals to participate in financial markets with confidence and security.</p>
+          </article>
+
+          <article class="card with-accent purple reveal" style="--delay:180ms" aria-labelledby="visionTitle">
+            <h3 id="visionTitle">Our Vision</h3>
+            <p>To become the world's leading platform for digital asset trading, known for innovation, security, and exceptional user experience.</p>
+          </article>
+
+          <div class="card reveal" style="--delay:240ms">
+            <p style="color:var(--muted); margin:0 0 8px; font-weight:700">About the company</p>
+            <p style="margin:0; color:var(--muted); font-size:14px">
+              River Trade Investment was founded in 2021 with a mission to provide best-in-class trading products and a secure, reliable platform. We continually invest in security and engineering to scale globally.
+            </p>
+          </div>
+        </div>
+
+        <!-- Company long description -->
+        <div class="section reveal" style="--delay:300ms">
+          <p style="color:var(--muted); margin-top:18px; font-size:14px; line-height:1.6">
+            Focus areas: institutional-grade security, advanced algos, multi-asset market access, and community-led product improvements. Strategic ambitions include expanding private market offerings and maintaining the highest data-protection standards globally.
+          </p>
+        </div>
+      </div>
+
+      <!-- right: company stats -->
+      <aside class="stats reveal" style="--delay:80ms" aria-label="Company statistics">
+        <div class="stats-head">
+          <h3>Company <span style="color:var(--accent)">Stats</span></h3>
+          <div class="badge">2023 Data</div>
+        </div>
+
+        <div class="stat-grid" aria-hidden="false">
+          <div class="stat-card">
+            <div class="num stat-count" data-target="50000">0</div>
+            <small>users</small>
+            <div class="muted"><i class="fas fa-arrow-up" aria-hidden></i> <span style="color:var(--success); font-weight:700">27% growth</span></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="num">100+</div>
+            <small>pairs</small>
+            <div class="muted"><i class="fas fa-plus-circle" aria-hidden></i> 15 new this month</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="num">24/7</div>
+            <small>support</small>
+            <div class="muted"><i class="far fa-clock" aria-hidden></i> 10 min avg. response</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="num">99.9%</div>
+            <small>uptime</small>
+            <div class="muted"><i class="fas fa-shield-alt" aria-hidden></i> Enterprise security</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Values & timeline -->
+    <section class="section reveal" style="--delay:360ms">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;">
+        <div>
+          <h3 style="margin:0 0 6px;">Our Journey</h3>
+          <p style="margin:0; color:var(--muted)">From foundation to global expansion — milestones that shaped our platform.</p>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top:18px;">
+        <div class="value-card reveal" style="--delay:420ms">
+          <h4>Foundation — 2021</h4>
+          <p>Founded by a team of traders and engineers with the goal of simplifying access to markets.</p>
+        </div>
+
+        <div class="value-card reveal" style="--delay:480ms">
+          <h4>Growth — 2022</h4>
+          <p>Reached early traction, grew user base and expanded team across continents.</p>
+        </div>
+
+        <div class="value-card reveal" style="--delay:540ms">
+          <h4>Innovation — 2023</h4>
+          <p>Launched AI-powered trading tools and expanded market coverage to 100+ pairs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section">
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <h3 style="margin:0 0 6px;">Meet Our Experts</h3>
+          <p style="margin:0; color:var(--muted)">The leadership and builders behind River Trade.</p>
+        </div>
+      </div>
+
+      <div class="team-grid" style="margin-top:14px;">
+        <div class="member reveal" style="--delay:600ms">
+          <div class="avatar">JD</div>
+          <h5>James Donovan</h5>
+          <p class="role">CEO & Founder</p>
+          <p style="color:var(--muted); font-size:13px; margin-top:8px;">Former hedge fund manager with extensive trading experience.</p>
+        </div>
+
+        <div class="member reveal" style="--delay:660ms">
+          <div class="avatar">MP</div>
+          <h5>Maria Patel</h5>
+          <p class="role">CTO</p>
+          <p style="color:var(--muted); font-size:13px; margin-top:8px;">Tech leader focused on platform reliability and innovation.</p>
+        </div>
+
+        <div class="member reveal" style="--delay:720ms">
+          <div class="avatar">TW</div>
+          <h5>Thomas Wilson</h5>
+          <p class="role">Head of Security</p>
+          <p style="color:var(--muted); font-size:13px; margin-top:8px;">Cybersecurity expert dedicated to protecting user assets.</p>
+        </div>
+
+        <div class="member reveal" style="--delay:780ms">
+          <div class="avatar">SL</div>
+          <h5>Sarah Lee</h5>
+          <p class="role">Customer Success</p>
+          <p style="color:var(--muted); font-size:13px; margin-top:8px;">Helping users onboard and get value from the platform.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+      <div style="margin-top:18px;">
+        <h3 style="margin:0 0 6px;">Trader Testimonials</h3>
+        <p style="margin:0; color:var(--muted)">Hear from the community.</p>
+      </div>
+
+      <div class="testimonials" style="margin-top:12px;">
+        <div class="testimonial reveal" style="--delay:840ms">
+          <p style="margin:0; font-style:italic">“River Trade Investment has transformed my trading — intuitive, powerful, reliable.”</p>
+          <div style="margin-top:10px; color:var(--muted); font-weight:700">James Miller — Day Trader, London</div>
+        </div>
+
+        <div class="testimonial reveal" style="--delay:900ms">
+          <p style="margin:0; font-style:italic">“The AI trading bots helped me automate strategies with solid risk controls.”</p>
+          <div style="margin-top:10px; color:var(--muted); font-weight:700">Sarah Chen — Investor, Singapore</div>
+        </div>
+
+        <div class="testimonial reveal" style="--delay:960ms">
+          <p style="margin:0; font-style:italic">“Educational resources and community support made my first trades easy.”</p>
+          <div style="margin-top:10px; color:var(--muted); font-weight:700">Robert Garcia — New Trader, Toronto</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta reveal" style="--delay:1020ms">
+      <div>
+        <h3 style="margin:0 0 6px;">Join Our Community</h3>
+        <p style="margin:0; color:var(--muted)">Become part of a growing community of traders shaping the future of finance.</p>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="../auth.html#register" class="btn btn-primary">Create Account</a>
+        <a href="contact.html#contact" class="btn btn-secondary">Contact Us</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ---------------------------
+    // Mobile menu toggle
+    // ---------------------------
+    (function(){
+      const mobileToggle = document.getElementById('mobileToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileToggle.addEventListener('click', () => {
+        const open = mobileMenu.style.display === 'block';
+        mobileMenu.style.display = open ? 'none' : 'block';
+        mobileToggle.setAttribute('aria-expanded', String(!open));
+      });
+
+      // close mobile menu when clicking outside on small screens
+      document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (window.innerWidth <= 980 && mobileMenu.style.display === 'block') {
+          if (!mobileMenu.contains(target) && !mobileToggle.contains(target)) {
+            mobileMenu.style.display = 'none';
+            mobileToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    })();
+
+    // ---------------------------
+    // Reveal on scroll for .reveal elements
+    // ---------------------------
+    (function(){
+      const revealEls = Array.from(document.querySelectorAll('.reveal'));
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const applyVisible = (el) => {
+        const delay = (el.style.getPropertyValue('--delay') || '0ms').trim();
+        if (delay) el.style.transitionDelay = delay;
+        el.classList.add('visible');
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            applyVisible(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      if (prefersReduced) {
+        revealEls.forEach(el => applyVisible(el));
+      } else {
+        revealEls.forEach(el => observer.observe(el));
+      }
+    })();
+
+    // ---------------------------
+    // Animated stat counter (simple, accessible)
+    // ---------------------------
+    (function(){
+      const counters = document.querySelectorAll('.stat-count[data-target]');
+      if (!counters.length) return;
+
+      const animateCounter = (el) => {
+        const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+        const duration = 1400; // ms
+        const start = performance.now();
+        const initial = 0;
+
+        const step = (now) => {
+          const t = Math.min(1, (now - start) / duration);
+          // easeOutCubic
+          const eased = 1 - Math.pow(1 - t, 3);
+          const value = Math.floor(initial + (target - initial) * eased);
+          el.textContent = value.toLocaleString();
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+
+      const obs = new IntersectionObserver((entries, ob) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            ob.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.4});
+
+      counters.forEach(c => obs.observe(c));
+    })();
+
+    // ---------------------------
+    // Accessibility: keyboard nav for mobile toggle
+    // ---------------------------
+    (function(){
+      const mobileToggle = document.getElementById('mobileToggle');
+      mobileToggle.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          mobileToggle.click();
+        }
+      });
+    })();
+
+    // Note: Replace the FontAwesome script link with a valid kit or replace icons with inline svgs.
+  </script>
+<!-- START: Mobile Menu Injected by updater -->
+<style>
+/* Mobile menu minimal styles (injected) */
+.mobile-navbar { display: none; position: fixed; top:0; left:0; right:0; background:#0b0b0b; color:#fff; z-index:9999; padding:12px 16px; align-items:center; justify-content:space-between; }
+.mobile-navbar .logo { font-weight:700; display:flex; align-items:center; gap:8px; }
+.mobile-navbar .logo img { height:36px; width:auto; display:block; }
+@media (max-width:420px){ .mobile-navbar .logo img { height:28px; } }
+.mobile-menu-btn { font-size:22px; cursor:pointer; }
+.mobile-menu-panel { position:fixed; top:0; right:0; width:75%; height:100%; background:#070707; padding:70px 20px; z-index:9998; overflow:auto; transform: translateX(100%); transition: transform 280ms ease; }
+.mobile-menu-panel a { display:block; color:#fff; padding:12px 0; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.04); }
+.mobile-menu-panel.active { transform: translateX(0); }
+@media (max-width: 768px) { .mobile-navbar{ display:flex } .desktop-only { display:none !important } }
+</style>
+
+<div class="mobile-navbar">
+  <div class="logo"><img src="../icoinred/logo-88256519050c5e84fcbd2120a81b2097.svg" alt="BKCHANGE logo"></div>
+  <div class="mobile-menu-btn" id="mobileMenuToggle">☰</div>
+</div>
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <a href="../index.html#home">Home</a>
+  <a href="../auth.html#login">Login</a>
+  <a href="../auth.html#register">Sign Up</a>
+  <a href="contact.html#contact">About / Contact</a>
+</div>
+
+<script>
+// Mobile menu toggle added by updater
+(function(){
+  const btn = document.getElementById('mobileMenuToggle');
+  const panel = document.getElementById('mobileMenuPanel');
+  if(!btn || !panel) return;
+
+  function toggle(){ if(panel.classList.contains('active')) panel.classList.remove('active'); else panel.classList.add('active'); }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  panel.addEventListener('click', function(e){ e.stopPropagation(); });
+  panel.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ panel.classList.remove('active'); }); });
+  document.addEventListener('click', function(e){ if(panel.classList.contains('active') && !panel.contains(e.target) && !btn.contains(e.target)) panel.classList.remove('active'); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' || e.key === 'Esc') panel.classList.remove('active'); });
+})();
+</script>
+  <script src="../frontend-api.js"></script>
+  
+  <!-- END: Mobile Menu Injected by updater -->
+</body>
+</html>

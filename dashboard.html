@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crypto Dashboard — Neutral Theme + Live Binance + TradingView</title>
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Dashboard CSS -->
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="lang-style/language.css" />
+  <link rel="stylesheet" href="smartwatch-styles.css" />
+
+</head>
+
+<body data-theme="light">
+
+  <!-- ===== Sidebar (always visible) ===== -->
+  <aside class="sidebar" role="navigation" aria-label="Main sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo">RT</div>
+      <h1></h1>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" title="Toggle menu">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+    </div>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="dashboard.html" id="homeBtn" class="active"><i class="fa-solid fa-house fa-fw"></i><span class="label" data-translate="home">Home</span></a>
+      <a href="#"><i class="fa-solid fa-wallet fa-fw"></i><span class="label" data-translate="deposit">Deposit</span></a>
+      <a href="#"><i class="fa-solid fa-download fa-fw"></i><span class="label" data-translate="withdraw">Withdraw</span></a>
+      <a href="#"><i class="fa-solid fa-list-check fa-fw"></i><span class="label" data-translate="investmentPlans">Investment Plans</span></a>
+      <a href="#"><i class="fa-solid fa-clock-rotate-left fa-fw"></i><span class="label" data-translate="profitHistory">Profit History</span></a>
+      <a href="#"><i class="fa-solid fa-person-running fa-fw"></i><span class="label" data-translate="copyExpert">Copy Expert</span></a>
+      <a href="#"><i class="fa-solid fa-exchange-alt fa-fw"></i><span class="label" data-translate="transactions">Transactions</span></a>
+      <a href="#"><i class="fa-solid fa-briefcase fa-fw"></i><span class="label" data-translate="myInvestments">My Investments</span></a>
+      <a href="#"><i class="fa-solid fa-headset fa-fw"></i><span class="label" data-translate="contactSupport">Contact Support</span></a>
+    </nav>
+
+    <div class="footer">
+      <div class="muted-inline"><span data-translate="loggedInAs">Logged in as</span> <strong id="userDisplay">loading...</strong></div>
+      <div style="height:8px"></div>
+      <div class="muted-inline"><span data-translate="version">Version</span> 1.2 • Live + Charts</div>
+      <div style="height:8px"></div>
+      <button onclick="logout()" class="btn-logout" data-translate="logout">Logout</button>
+    </div>
+  </aside>
+
+  <!-- ===== Header (keeps visible) ===== -->
+  <header class="topbar">
+    <div class="title">RiverTrade Dashboard</div>
+    <div class="controls">
+      <div id="timeDisplay" class="muted-inline" aria-live="polite">—</div>
+      <a href="index.html" class="toggle" title="Back to home">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <select id="languageSelector" class="language-selector" title="Select language" aria-label="Language selector">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="zh">Chinese</option>
+      </select>
+      <button id="themeToggle" class="toggle" aria-pressed="false" title="Toggle light / dark">
+        <i id="themeIcon" class="fa-regular fa-sun"></i>
+        <span id="themeLabel">Light</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Main content ===== -->
+  <main>
+
+    <!-- Mobile Dashboard Section (Only visible on mobile) -->
+    <section class="mobile-dashboard" aria-label="Mobile dashboard">
+      <!-- Welcome Banner -->
+      <div class="welcome-banner">
+        <div class="welcome-header">
+          <h2>Welcome to RiverTrade</h2>
+          <div class="mobile-controls">
+            <a href="index.html" class="toggle" title="Back to home">
+              <i class="fa-solid fa-house"></i>
+            </a>
+            <select id="languageSelector" class="language-selector" title="Select language" aria-label="Language selector">
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="zh">Chinese</option>
+            </select>
+            <button id="themeToggle" class="toggle mobile-theme-toggle" aria-pressed="false" title="Toggle light / dark">
+              <i id="themeIcon" class="fa-regular fa-sun"></i>
+            </button>
+          </div>
+          <button class="welcome-close" aria-label="Close welcome">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Account Overview Card -->
+      <div class="account-overview">
+        <div class="overview-content">
+          <div class="greeting">
+            <p class="greeting-label">Account Overview</p>
+            <h3 id="mobileUserGreeting">Hello User!</h3>
+          </div>
+          <button class="eye-toggle" id="balanceToggle" title="Toggle balance visibility">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+
+        <!-- Balance Cards -->
+        <div class="balance-section">
+          <!-- Available Balance -->
+          <div class="balance-item">
+            <div class="balance-label">Available Balance</div>
+            <div class="balance-amount" id="mobileAvailableBalance">$0.00</div>
+          </div>
+
+          <!-- Locked Balance -->
+          <div class="balance-item locked">
+            <div class="balance-label">
+              <i class="fa-solid fa-lock"></i> Locked Balance
+            </div>
+            <div class="balance-amount locked-amount" id="mobileLockedBalance">$0.00</div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Total Profit</div>
+              <div class="stat-value" id="mobileTotalProfit">$0.00</div>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-icon">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Bonus</div>
+              <div class="stat-value" id="mobileBonus">$0.00</div>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Referral Bonus</div>
+              <div class="stat-value" id="mobileReferralBonus">$0.00</div>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-icon">
+              <i class="fa-solid fa-arrow-down"></i>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Withdrawals</div>
+              <div class="stat-value" id="mobileWithdrawals">$0.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards row (live pairs) -->
+    <section class="cards" aria-label="Real-time indicators">
+      <div class="card">
+        <h3>BTC / USDT</h3>
+        <div class="value" id="btcPrice">--</div>
+        <div class="muted">24h Change: <span id="btcChange">--</span></div>
+      </div>
+
+      <div class="card">
+        <h3>ETH / USDT</h3>
+        <div class="value" id="ethPrice">--</div>
+        <div class="muted">24h Change: <span id="ethChange">--</span></div>
+      </div>
+
+      <div class="card">
+        <h3>BNB / USDT</h3>
+        <div class="value" id="bnbPrice">--</div>
+        <div class="muted">24h Change: <span id="bnbChange">--</span></div>
+      </div>
+
+      <div class="card">
+        <h3>SOL / USDT</h3>
+        <div class="value" id="solPrice">--</div>
+        <div class="muted">24h Change: <span id="solChange">--</span></div>
+      </div>
+
+      <div class="card">
+        <h3>XRP / USDT</h3>
+        <div class="value" id="xrpPrice">--</div>
+        <div class="muted">24h Change: <span id="xrpChange">--</span></div>
+      </div>
+
+      <div class="card">
+        <h3>DOGE / USDT</h3>
+        <div class="value" id="dogePrice">--</div>
+        <div class="muted">24h Change: <span id="dogeChange">--</span></div>
+      </div>
+    </section>
+
+    <!-- Red square tiles (below cards, above charts) -->
+    <section class="tiles" aria-label="Quick actions">
+      <div class="tile"><i class="fa-solid fa-credit-card icon"></i>
+        <div class="label">Transactions</div><small>View transaction history</small>
+      </div>
+      <div class="tile"><i class="fa-solid fa-seedling icon"></i>
+        <div class="label">My Investments</div><small>Manage portfolios</small>
+      </div>
+      <div class="tile"><i class="fa-solid fa-exchange-alt icon"></i>
+        <div class="label">Swap Crypto</div><small>Instant swaps</small>
+      </div>
+      <div class="tile"><i class="fa-regular fa-file-lines icon"></i>
+        <div class="label">Managed Accounts</div><small>Professional accounts</small>
+      </div>
+      <div class="tile"><i class="fa-regular fa-id-badge icon"></i>
+        <div class="label">Profile</div><small>Account settings</small>
+      </div>
+      <div class="tile"><i class="fa-solid fa-user-plus icon"></i>
+        <div class="label">Referrals</div><small>Invite friends</small>
+      </div>
+    </section>
+
+    <!-- Charts filter -->
+    <div class="charts-filter">
+      <label for="chartFilter" class="muted-inline">Filter charts:</label>
+      <select id="chartFilter" aria-label="Filter charts">
+        <option value="all">Show All</option>
+        <option value="top3">Top 3</option>
+        <option value="BTCUSDT">BTC</option>
+        <option value="ETHUSDT">ETH</option>
+        <option value="BNBUSDT">BNB</option>
+        <option value="SOLUSDT">SOL</option>
+        <option value="XRPUSDT">XRP</option>
+        <option value="DOGEUSDT">DOGE</option>
+      </select>
+    </div>
+
+    <!-- TradingView charts grid (2 per row) -->
+    <section id="chartsSection" class="charts-grid" aria-label="Market charts">
+      <!-- chart-card blocks will be injected here -->
+    </section>
+
+    <!-- Transactions History Section -->
+    <section id="transactionsSection" class="transactions-section" style="display: none;">
+      <h2>Transaction History</h2>
+      <div class="table-container">
+        <table class="dashboard-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsTableBody">
+            <tr>
+              <td>2024-01-07</td>
+              <td>Deposit</td>
+              <td>$500.00</td>
+              <td><span class="status success">Completed</span></td>
+            </tr>
+            <tr>
+              <td>2024-01-06</td>
+              <td>Withdrawal</td>
+              <td>$200.00</td>
+              <td><span class="status success">Completed</span></td>
+            </tr>
+            <tr>
+              <td>2024-01-05</td>
+              <td>Investment</td>
+              <td>$1000.00</td>
+              <td><span class="status success">Active</span></td>
+            </tr>
+            <tr>
+              <td>2024-01-04</td>
+              <td>Profit Distribution</td>
+              <td>$150.50</td>
+              <td><span class="status success">Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <a href="#" class="nav-item active" data-nav="history" title="History">
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span>History</span>
+    </a>
+    <a href="#" class="nav-item" data-nav="deposit" title="Deposit">
+      <i class="fa-solid fa-wallet"></i>
+      <span>Deposit</span>
+    </a>
+    <a href="dashboard.html" class="nav-item home" data-nav="home" title="Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item" data-nav="withdraw" title="Withdraw">
+      <i class="fa-solid fa-arrow-down"></i>
+      <span>Withdraw</span>
+    </a>
+    <button class="nav-item menu-toggle" id="mobileMenuToggle" title="Menu">
+      <i class="fa-solid fa-bars"></i>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+</body>
+<!-- Deposit Modal -->
+<div id="depositModal" class="modal" aria-hidden="true" style="display:none">
+  <div class="modal-backdrop" tabindex="-1"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="depositModalTitle">
+    <header class="modal-header">
+      <h3 id="depositModalTitle">Deposit Funds</h3>
+      <button class="modal-close" data-modal="depositModal" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="depositAmount">Amount (USD)</label>
+        <input id="depositAmount" type="number" min="100" step="0.01" placeholder="Enter amount" />
+        <small>Minimum deposit: $100</small>
+      </div>
+      <div class="form-group">
+        <label for="depositMethod">Payment Method</label>
+        <select id="depositMethod">
+          <option value="">Select payment method</option>
+          <option value="crypto">Cryptocurrency</option>
+          <option value="bank">Bank Transfer</option>
+          <option value="card">Debit/Credit Card</option>
+        </select>
+      </div>
+      <div id="depositWallet" style="display:none; margin-top:15px; padding:15px; background:#f0f0f0; border-radius:8px;">
+        <p><strong>Send funds to this address:</strong></p>
+        <code style="word-break:break-all; background:#fff; padding:10px; border-radius:4px; display:block; margin:10px 0;">
+          1A1z7agoat7W8EzGtqtU2CCZN6SHDA5tcD
+        </code>
+        <p><small>Bitcoin wallet address</small></p>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <button class="btn-secondary modal-close" data-modal="depositModal">Cancel</button>
+      <button id="depositConfirm" class="btn-primary">Continue</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Withdraw Modal -->
+<div id="withdrawModal" class="modal" aria-hidden="true" style="display:none">
+  <div class="modal-backdrop" tabindex="-1"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="withdrawModalTitle">
+    <header class="modal-header">
+      <h3 id="withdrawModalTitle">Withdraw Funds</h3>
+      <button class="modal-close" data-modal="withdrawModal" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="withdrawAmount">Amount (USD)</label>
+        <input id="withdrawAmount" type="number" min="50" step="0.01" placeholder="Enter amount" />
+        <small>Minimum withdrawal: $50</small>
+      </div>
+      <div class="form-group">
+        <label for="withdrawMethod">Withdraw To</label>
+        <select id="withdrawMethod">
+          <option value="">Select withdrawal method</option>
+          <option value="crypto">Cryptocurrency Wallet</option>
+          <option value="bank">Bank Account</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="withdrawAddress">Wallet/Account Address</label>
+        <input id="withdrawAddress" type="text" placeholder="Enter your wallet or account details" />
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <button class="btn-secondary modal-close" data-modal="withdrawModal">Cancel</button>
+      <button id="withdrawConfirm" class="btn-primary">Withdraw</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Invest modal (hidden by default) -->
+<div id="investModal" class="invest-modal" aria-hidden="true" style="display:none">
+  <div class="invest-modal-backdrop" id="investModalBackdrop" tabindex="-1"></div>
+  <div class="invest-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="investModalTitle">
+    <header class="invest-modal-header">
+      <h3 id="investModalTitle">Invest</h3>
+    </header>
+    <div class="invest-modal-body">
+      <p id="investPlanDetails">Plan details will appear here.</p>
+      <div class="form-group">
+        <label for="investAmount">Amount</label>
+        <input id="investAmount" type="number" min="0" step="0.01" />
+      </div>
+    </div>
+    <footer class="invest-modal-footer">
+      <button id="investCancel" class="btn-primary">Cancel</button>
+      <button id="investConfirm" class="btn-primary">Confirm</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Dashboard functionality -->
+<script src="auth-service.js"></script>
+<script src="dashboard.js"></script>
+<script src="lang-style/language.js"></script>
+
+<script>
+// Sidebar collapse toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  
+  if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      sidebar.classList.toggle('collapsed');
+      
+      // Save state to localStorage
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      localStorage.setItem('sidebarCollapsed', isCollapsed);
+    });
+    
+    // Restore saved state
+    const wasCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    if (wasCollapsed) {
+      sidebar.classList.add('collapsed');
+    }
+  }
+});
+</script>
+
+
+
+</body>
+
+</html>

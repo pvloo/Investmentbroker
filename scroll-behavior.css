@@ -1,0 +1,220 @@
+/* Device-Specific Scrolling Behavior */
+
+/* ====== MOBILE SCROLLING (max-width: 768px) ====== */
+@media (max-width: 768px) {
+  /* Mobile smooth scrolling with momentum */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Testimonial carousel - faster, snappier scroll on mobile */
+  .testimonialtrack {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 10px;
+    /* Mobile: more responsive, less friction */
+  }
+
+  .customertext {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Table scrolling - optimized for touch */
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+  }
+
+  /* Sections with overflow - smooth momentum scrolling */
+  .marketvh,
+  .packages,
+  .steps {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Disable smooth scrolling for internal page links on mobile - instant jump */
+  html.mobile-instant-scroll {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ====== TABLET/IPAD SCROLLING (769px - 1024px) ====== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Tablet: moderate scroll snap for testimonials */
+  .testimonialtrack {
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 20px;
+  }
+
+  .customertext {
+    scroll-snap-align: center;
+    scroll-snap-stop: auto;
+  }
+
+  /* Table scrolling - smooth on tablet */
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+/* ====== DESKTOP SCROLLING (min-width: 1025px) ====== */
+@media (min-width: 1025px) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Desktop: standard smooth scrolling */
+  .testimonialtrack {
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    scroll-padding: 30px;
+  }
+
+  .customertext {
+    scroll-snap-align: center;
+    scroll-snap-stop: auto;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .customertext:hover {
+    transform: translateY(-10px);
+  }
+
+  /* Table scrolling - smooth behavior on desktop */
+  .table-container {
+    scroll-behavior: smooth;
+  }
+
+  /* Page scroll - smooth animation */
+  window {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ====== UNIVERSAL SCROLLBAR STYLING ====== */
+/* WebKit scrollbars (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(96, 37, 37);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(120, 50, 50);
+}
+
+/* Mobile-specific scrollbar (hide by default, show on interaction) */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar-thumb {
+    background: rgba(96, 37, 37, 0.6);
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: rgb(96, 37, 37);
+  }
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-color: rgb(96, 37, 37) rgba(0, 0, 0, 0.05);
+  scrollbar-width: thin;
+}
+
+/* ====== MOMENTUM SCROLLING ====== */
+/* Ensure momentum scrolling on iOS */
+.testimonialtrack,
+.table-container,
+.packages {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ====== SCROLL BEHAVIOR ENHANCEMENTS ====== */
+/* Faster page scroll on mobile */
+@media (max-width: 768px) {
+  /* Quick scroll snapping for mobile carousels */
+  .testimonialtrack {
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+  }
+
+  .customertext {
+    scroll-snap-align: start;
+  }
+}
+
+/* Smooth page transitions */
+.page-transition {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== TOUCH-FRIENDLY SCROLLING ====== */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch devices */
+  body {
+    touch-action: manipulation;
+  }
+
+  .testimonialtrack,
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Increase touch targets on mobile */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ====== REDUCE MOTION FOR ACCESSIBILITY ====== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .testimonialtrack {
+    scroll-snap-type: none;
+  }
+
+  .customertext,
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

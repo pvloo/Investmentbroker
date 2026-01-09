@@ -1,0 +1,232 @@
+/* ===== SMARTWATCH SUPPORT (280px - 360px) ===== */
+@media (max-width: 360px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  header.topbar {
+    left: 0;
+    height: 44px;
+    padding: 0 6px;
+    gap: 4px;
+  }
+
+  header .title {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  header .controls {
+    gap: 2px;
+    margin-left: auto;
+  }
+
+  .toggle {
+    padding: 3px 6px;
+    font-size: 10px;
+    gap: 3px;
+    border-radius: 4px;
+  }
+
+  .toggle span {
+    display: none;
+  }
+
+  .toggle i {
+    font-size: 14px;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 56px 8px 16px 8px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin: 8px 0;
+  }
+
+  .card {
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .card h3 {
+    font-size: 12px;
+    margin: 0 0 4px 0;
+  }
+
+  .card .value {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .card .muted {
+    font-size: 9px;
+  }
+
+  .tiles {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin: 8px 0;
+  }
+
+  .tile {
+    padding: 8px;
+    border-radius: 6px;
+    min-height: auto;
+  }
+
+  .tile .icon {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .tile .label {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .tile small {
+    font-size: 8px;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .chart-card {
+    height: 200px;
+  }
+
+  .charts-filter {
+    padding: 6px;
+    margin: 6px 0;
+  }
+
+  .charts-filter label {
+    font-size: 10px;
+  }
+
+  .charts-filter select {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  /* Mobile dashboard for smartwatch */
+  .mobile-dashboard {
+    padding: 8px;
+  }
+
+  .welcome-banner {
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+
+  .welcome-header h2 {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .account-overview {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .balance-section {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .balance-item {
+    padding: 8px;
+  }
+
+  .balance-label {
+    font-size: 9px;
+  }
+
+  .balance-amount {
+    font-size: 14px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .stat-box {
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  .stat-icon {
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
+
+  .stat-value {
+    font-size: 12px;
+  }
+
+  .form-container {
+    padding: 12px;
+    max-width: none;
+    margin: 8px 0;
+  }
+
+  .dashboard-form {
+    gap: 8px;
+  }
+
+  .form-group {
+    gap: 4px;
+  }
+
+  .form-group label {
+    font-size: 11px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .table-container {
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .muted-inline {
+    font-size: 9px;
+  }
+
+  #timeDisplay {
+    display: none;
+  }
+}

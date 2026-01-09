@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rivertrade</title>
+
+  <!-- Font Awesome Icons (async) -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lang-style/language.css">
+  <link rel="stylesheet" href="scroll-behavior.css">
+
+  <style>
+    /* Make TradingView widget responsive */
+    .tradingview-widget-container { 
+      width: 100%; 
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      background: rgb(96, 37, 37);
+      overflow: visible;
+    }
+
+    .tradingview-widget-container iframe { 
+      width: 100% !important;
+      display: block;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* Mobile styles (up to 768px) - Faster loading */
+    @media (max-width: 768px) {
+      .tradingview-widget-container {
+        margin-top: 60px;
+        padding: 0;
+        min-height: 50px;
+        contain: layout style paint;
+      }
+
+      .tradingview-widget-container iframe {
+        height: 50px !important;
+        min-height: 50px !important;
+      }
+    }
+
+    /* Tablet/iPad styles (768px to 1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .tradingview-widget-container {
+        margin-top: 20px;
+        padding: 0;
+        min-height: 60px;
+        contain: layout style paint;
+      }
+
+      .tradingview-widget-container iframe {
+        height: 60px !important;
+        min-height: 60px !important;
+      }
+    }
+
+    /* Desktop styles (1025px and above) */
+    @media (min-width: 1025px) {
+      .tradingview-widget-container {
+        padding: 0;
+        min-height: 60px;
+        contain: layout style paint;
+      }
+
+      .tradingview-widget-container iframe {
+        height: 60px !important;
+        min-height: 60px !important;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+
+       <!-- TradingView Widget BEGIN (Lazy Loaded) -->
+    <div class="tradingview-widget-container" data-lazy-tradingview>
+      <div class="tradingview-widget-container__widget"></div>
+    </div>
+    <!-- TradingView Widget END (loads on scroll) -->
+    <nav>
+      <img src="./icoinred/logo-88256519050c5e84fcbd2120a81b2097.svg" alt="">
+      <ul>
+        <li class="botton desktop-only"><a href="index.html">HOME</a></li>
+        <li class="desktop-only"><a href="auth.html#login">LOGIN</a></li>
+        <li class="desktop-only"><a href="auth.html#register">REGISTER</a></li>
+      </ul>
+    </nav>
+
+
+    <div class="backgroundSection">
+      <video id="heroVideo" aria-label="River" loop muted playsinline preload="none">
+        <source media="(max-width: 426px)" src="./Image/mobile/rivertrade_Homepage.webm" type="video/webm" />
+        <source media="(max-width: 768px)" src="./Image/mobile/rivertrade_Homepage.webm" type="video/webm" />
+        <source src="./Image/mobile/rivertrade_Homepage.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Optional overlay text or call to action -->
+      <div class="overlayContent">
+        <h1>Welcome to RiverTrade</h1>
+        <p>Flow with the best trade opportunities</p>
+      </div>
+    </div>
+    <!-- <h1></h1> -->
+  </header>
+  <div class="option">
+    <h2 class="tion">Popular Cryptocurrencies</h2>
+    <P>Track and trade the most popular cryptocurrencies with real-time data and advanced tools</P>
+  </div>
+          <!-- Crypto Market Overview -->
+
+          <div class="marketv">
+                    <h2 class="marketv">Crypto Market Overview – <span id="date"></span></h2>
+        <span id="overview"></span>
+          </div>
+
+
+    <div class="stats">
+        <div class="card">
+            <h3>Market Cap</h3>
+            <p id="market-cap">--</p>
+        </div>
+        <div class="card">
+            <h3>Volume</h3>
+            <p id="volume">--</p>
+        </div>
+        <div class="card">
+            <h3>BTC Dominance</h3>
+            <p id="btc">--</p>
+        </div>
+        <div class="card">
+            <h3>ETH Dominance</h3>
+            <p id="eth">--</p>
+        </div>
+    </div>
+
+    <section class="marketvh">
+        <div class="search-filter">
+            <div class="tabs">
+                <button class="active" data-filter="recent">Recent</button>
+                <button data-filter="gainers">Gainers</button>
+                <button data-filter="roi">ROI</button>
+            </div>
+            <input type="text" id="search" placeholder="Search coin..." />
+        </div>
+
+        <div class="table-container">
+            <table id="projects">
+                <thead>
+                    <tr>
+                        <th data-sort="name">NAME</th>
+                        <th data-sort="rank">RANK</th>
+                        <th data-sort="price">PRICE</th>
+                        <th data-sort="change">24H CHANGE</th>
+                        <th data-sort="roi">ROI</th>
+                        <th data-sort="marketcap">MARKET CAP</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+    <!-- Crypto Market Overview End-->
+
+  <section class="packages1" id="packages1">
+    <h2 class="pack1">INVESTMENT PLANS</h2>
+    <P class="perfect">Choose the perfect investment plan that suits your trading goals and financial objectives</P>
+
+    <div class="packages">
+      <div class="card">
+        <h2>STARTER PACKAGE</h2>
+        <p>FOR</p>
+        <h3>$5,000 - $9,000</h3>
+        <button class="invest-btn" data-plan="starter" data-name="Starter Plan" data-min="5000"
+          data-max="9000">Get&nbsp;Started</button>
+      </div>
+
+      <div class="card">
+        <h2>DELUXE PACKAGE</h2>
+        <p>FOR</p>
+        <h3>$10,000 - $29,000</h3>
+        <button class="invest-btn" data-plan="deluxe" data-name="Deluxe Plan" data-min="10000"
+          data-max="29000">Get&nbsp;Started</button>
+      </div>
+
+      <div class="card">
+        <h2>PREMIUM PACKAGE</h2>
+        <p>FOR</p>
+        <h3>$30000 - $49000</h3>
+        <button class="invest-btn" data-plan="premium" data-name="Premium Plan" data-min="30000"
+          data-max="49000">Get&nbsp;Started</button>
+      </div>
+
+      <div class="card">
+        <h2>VIP PACKAGE</h2>
+        <p>FOR</p>
+        <h3>$100000 - $150000</h3>
+        <button class="invest-btn" data-plan="vip" data-name="VIP Plan" data-min="100000"
+          data-max="150000">Get&nbsp;Started</button>
+      </div>
+
+      <div class="card">
+        <h2>GOLD PACKAGE</h2>
+        <p>FOR</p>
+        <h3>$200,000 - $300,000</h3>
+        <button class="invest-btn" data-plan="gold" data-name="Gold Plan" data-min="200000"
+          data-max="300000">Get&nbsp;Started</button>
+      </div>
+
+      <div class="card">
+        <h2>VIP PLATINUM</h2>
+        <p>FOR</p>
+        <h3>$500,000 - $1,000,000</h3>
+        <button class="invest-btn" data-plan="vip_platinum" data-name="VIP Platinum" data-min="500000"
+          data-max="1000000">Get&nbsp;Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bitcoin Calculator Section Starts -->
+  <section class="bitcoin-calculator-section">
+    <div class="container">
+      <div class="row">
+        <!-- Section Heading Starts -->
+        <div class="col-md-12">
+          <h2 class="title-head text-center">
+            <span>Bitcoin</span> Calculator
+          </h2>
+          <p class="message text-center">
+            Find out the current Bitcoin value with our easy-to-use converter
+          </p>
+        </div>
+        <!-- Section Heading Ends -->
+
+        <!-- Calculator Form -->
+        <div class="col-md-12 text-center">
+          <form class="bitcoin-calculator" id="bitcoin-calculator">
+            <!-- Bitcoin Input -->
+            <input type="number" id="btc-value" class="form-input" name="btc-calculator-value" value="1" step="any" />
+
+            <div class="form-info">
+              <i class=""><img src="./Icons/gold-currency-btc-8f457ad7cc5c1925d315031c6375a0d4.svg" alt=""></i>
+            </div>
+
+            <div class="form-equal">=</div>
+
+            <!-- Currency Input -->
+            <input type="number" id="currency-value" class="form-input form-input-result" name="btc-calculator-result"
+              step="any" />
+
+            <!-- Currency Dropdown -->
+            <div class="form-wrap">
+              <select id="currency-select" class="form-input select-currency select-primary"
+                name="btc-calculator-currency">
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="gbp">GBP</option>
+                <option value="ngn">CAD</option>
+                <option value="cad">JPY</option>
+              </select>
+            </div>
+          </form>
+
+          <p class="info"><i>* Data updated every 15 minutes</i></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section Ends -->
+  <!-- Call To Action Section Starts -->
+  <section class="call-action-all">
+    <div class="call-action-all-overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- Call To Action Text Starts -->
+            <div class="action-text">
+              <h2>Secure & Fast Transactions</h2>
+              <p class="lead">We offer a comprehensive lineup of traditional and alternative strategies designed to <br>help you grow your wealth, preserve your wealth and everything in between.</p>
+              <p class="lead">Open account for free and start investing!</p>
+            </div>
+            <!-- Call To Action Text Ends -->
+            <!-- Call To Action Button Starts -->
+            <p class="bone"><a class="bone" href="auth.html#register"><button>Get started</button></a>
+            </p>
+            <!-- Call To Action Button Ends -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="Customertestimonials">
+    <div class="testimonialtrack">
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/Diego_1280x720_unlocalised@2x.jpg" alt=""></div>
+        <p class="testimonial">I am a living witness to this company, for some years now I have been receiving my
+          investment and my profit, this is one of the best company to invest on cryptocurrencies</p>
+        <p class="overview"><b>Diego Johnson</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/Steven_Hatzakis _170x170.webp" alt=""></div>
+        <p class="testimonial">Holding a Bitcoin today is like owning a Facebook, Amazon, or Apple stock positions in
+          the early 2000's. Blockchain technology has a lot more on offer if you could just adopt it. I will always
+          advise people to invest in this company.</p>
+        <p class="overview"><b>Steven Hatzakis</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/joey_Shadeck.webp" alt=""></div>
+        <p class="testimonial">Bitcoin is up 60% on the year while the almighty GOLD is down by 11%, and yet still hate
+          investing in BTC for the long run? Math doesn't lie, the media does</p>
+        <p class="overview"><b>Joey Shadeck</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/private-client-man-08e033759930e9900a5601ce2556abc2.jpg" alt=""></div>
+        <p class="testimonial">Anything the government hates or ban, invest in it and spend time to understand it
+          better. That could be your missing piece. Bitcoin is a perfect example of such! I am always grateful to this
+          amazing company for being the best.</p>
+        <p class="overview"><b>Jim Cramer</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/preston-d819514ab2aff1f63db2c5dc7fdfa1ce.jpg" alt=""></div>
+        <p class="testimonial">In the next 5-10 years, digital assets (predominantly Bitcoin and few Alts) will prove to
+          be a strong alternative currency of the world, if not entirely dethrone fiat currency. this is one of the
+          Forex trading company.</p>
+        <p class="overview"><b>Preston Pysh</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/b9f89f516a2fe649a582c2a79c68b54e.jpg" alt=""></div>
+        <p class="testimonial">Great platform to invest your money. I advice you use this</p>
+        <p class="overview"><b>Dayan Du Dosson </b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/laura-irish-faeb36fb050b50c4bd65b672f95f4c70.jpg" alt=""></div>
+        <p class="testimonial">This website is so great. Now I have my own business. I'm really happy. I will trading
+          under your website </p>
+        <p class="overview"><b>Laura Irish</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/hoffmeister-greg-dbb0c75423763eb27975341e8241c094.jpg" alt=""></div>
+        <p class="testimonial">All you just need to do is invest and let them do their work after making withdrawal you
+          pay their for a job well done. They has never made loss on part so please y'all can reach out to this platform
+        </p>
+        <p class="overview"><b>Greg Hoffmeister </b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/John-Bringans.webp" alt=""></div>
+        <p class="testimonial">I'm still shocked. I never believed I can ever make profit from trading after all the
+          lost but never gave up</p>
+        <p class="overview"><b>John Bringans</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/photo_2025-10-26_13-43-04.jpg" alt=""></div>
+        <p class="testimonial">Wow, what a surprise, did I just got my withdrawal? Is this real or a joke, I can't
+          believe this. that I just gotten my withdrawal thank you, thank you, thank you very much is amazing after many
+          times of trade without nothing to show I was told that this is feed with scammers but now I know that some are
+          real</p>
+        <p class="overview"><b>Jasmine Marcus</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/dom-bei-7f0538aa8d3877270b84661f5e87a0ad.jpg" alt=""></div>
+        <p class="testimonial">You all are the best, and am looking forward to trade with this platform all again. Feel
+          free to tell others of your investment and withdrawals don't be the only one benefiting from my platform.
+          Thank you all for the feedback</p>
+        <p class="overview"><b>Bei Wilson</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="customertext">
+        <div class="img-box"><img src="./Image/6a13ca5cb7536acada3f32ee1d5783de.jpg" alt=""></div>
+        <p class="testimonial">Just a quick thanks for your website!! You are a worthwhile mentor. I think there are
+          thousands who truly appreciate what you are doing!</p>
+        <p class="overview"><b>Patricia Feghhi-Levine</b></p>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+      </div>
+  </section>
+
+  <!--world map Start -->
+  <section class="worldmap">
+    <div class="containermap">
+      <div class="world">
+        <img src="./Image/mobile/world-map.pngimg.png" alt="World Map">
+      </div>
+
+      <!-- Cryptocurrency icons -->
+      <div class="crypto btc">
+        <img src="./Icons/bitcoin icons/bitcoin-btc@2x.png.webp" alt="Bitcoin">
+      </div>
+      <div class="crypto eth">
+        <img src="./Icons/bitcoin icons/ethereum@2x.png.webp" alt="Ethereum">
+      </div>
+      <div class="crypto ltc">
+        <img src="./Icons/bitcoin icons/litecoin@2x.png.webp" alt="Litecoin">
+      </div>
+      <div class="crypto xrp">
+        <img src="./Icons/bitcoin icons/xrp@2x.png.webp" alt="XRP">
+      </div>
+      <div class="crypto usdt">
+        <img src="./Icons/bitcoin icons/tether-usdt@2x.png.webp" alt="Tether">
+      </div>
+      <div class="crypto ada">
+        <img src="./Icons/bitcoin icons/usd-coin@2x.png.webp" alt="usdcoin">
+      </div>
+    </div>
+  </section>
+  <!--world map End -->
+
+
+  <!-- /*--Steps Section Start --*/ -->
+  <section class="steps">
+    <div class="step">
+      <div class="icon"><img src="./icoinred/reg.png" alt=""></div>
+      <h3>Create Your Account</h3>
+      <p>Sign up to access your secure investor dashboard.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/invest.png" alt=""></div>
+      <h3>Choose an Investment Plan</h3>
+      <p>Browse our curated crypto investment options.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/earn.png" alt=""></div>
+      <h3>Fund & Earn</h3>
+      <p>Deposit using crypto and watch your investment grow.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/hibernate.png" alt=""></div>
+      <h3>REGULATED & COMPLIANT</h3>
+      <p>We operate with full regulatory compliance, ensuring your funds are protected</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/tracking.png" alt=""></div>
+      <h3>REAL-TIME TRACKING</h3>
+      <p>Monitor your investments live with our intuitive dashboard</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/support.png" alt=""></div>
+      <h3>24/7 EXPERT SUPPORT</h3>
+      <p>Round-the-clock assistance from our crypto professionals</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/payment.png" alt=""></div>
+      <h3>PAYMENT OPTIONS</h3>
+      <p>Popular methods: Bitcoin, Ethereum, bank transfer, cryptocurrency</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/globe.png" alt=""></div>
+      <h3>WORLD COVERAGE</h3>
+      <p>Providing services in 99% countries around all the globe</p>
+    </div>
+
+    <div class="step">
+      <div class="icon"><img src="./icoinred/secure.png" alt=""></div>
+      <h3>STRONG SECURITY</h3>
+      <p>Protection against DDoS attacks, full data encryption</p>
+    </div>
+  </section>
+  <!-- /* Steps Section End */ -->
+
+
+  <!-- downsection Start-->
+  <section class="downsection">
+    <footer class="footer">
+      <div class="top-bar">
+        <img src="./icoinred/river_black.svg" alt="Company Logo" />
+        <div class="social-wrapper">
+          <span>Follow us on</span>
+          <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-content">
+        <div class="column">
+          <h3>Product</h3>
+          <ul>
+            <li><a href="#packages1">Invest</a></li>
+            <li><a href="chatbot.html#Chatbot">Chatbot</a></li>
+            <!-- <li><a href="#">Futures</a></li> -->
+          </ul>
+        </div>
+
+        <div class="column">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="about.contact/about.html#about">About us</a></li>
+            <!-- <li><a href="#">Blog</a></li> -->
+            <li><a href="about.contact/contact.html#support">Support</a></li>
+          </ul>
+        </div>
+
+        <div class="column">
+          <h3>Legal & Regulatory</h3>
+          <ul>
+            <li><a href="pdf%20docum/Robinhood%20Terms%20and%20Conditions.pdf" target="_blank" rel="noopener">Terms & Conditions</a></li>
+            <li><a href="#">Disclosures</a></li>
+            <li><a href="pdf%20docum/Law-Enforcement-Request.pdf" target="_blank" rel="noopener">Law Enforcement Requests</a></li>
+            <!-- <li><a href="#">Your Privacy Choices</a></li> -->
+          </ul>
+        </div>
+
+        <div class="column risk">
+          <h3>Secure & Fast Transactions.</h3>
+          <p><strong>Brokerage services</strong> are offered through River Financial LLC (“RHF”), a registered broker
+            dealer...</p>
+          <p><strong>Portfolio Management</strong> offered through Rivertrade Asset Management LLC (“RAM”)...</p>
+          <p><strong>Futures and cleared trading</strong> is offered by River Derivatives, LLC (“RHD”)...</p>
+        </div>
+      </div>
+    </footer>
+  </section>
+  <!-- downsection End-->
+
+
+  <script src="bitcoin-calculator-section.js"></script>
+  <script src="tradingview-loader.js"></script>
+  <script src="lang-style/language.js"></script>
+  <script src="market-performance.js"></script>
+  <script src="main.js"></script>
+  <script src="hero-video.js"></script>
+  <script src="scroll-behavior.js"></script>
+  <script src="performance-diagnostics.js"></script>
+
+<!-- START: Mobile Menu Injected by updater -->
+<style>
+/* Mobile menu minimal styles (injected) */
+.mobile-navbar { display: none; position: fixed; top:0; left:0; right:0; background:#0b0b0b; color:#fff; z-index:9999; padding:12px 16px; align-items:center; justify-content:space-between; }
+.mobile-navbar .logo { font-weight:700; }
+.mobile-navbar .logo { display:flex; align-items:center; gap:8px; }
+.mobile-navbar .logo img { height:36px; width:auto; display:block; }
+.navbar-actions { display:flex; align-items:center; gap:12px; }
+.mobile-home-btn { color:#fff; text-decoration:none; font-size:18px; display:flex; align-items:center; justify-content:center; padding:4px 8px; cursor:pointer; transition:opacity 200ms; }
+.mobile-home-btn:hover { opacity:0.7; }
+.mobile-theme-toggle { background:none; border:none; color:#fff; font-size:18px; cursor:pointer; padding:4px 8px; display:flex; align-items:center; justify-content:center; transition:opacity 200ms; }
+.mobile-theme-toggle:hover { opacity:0.7; }
+.mobile-menu-btn { font-size:22px; cursor:pointer; }
+.mobile-menu-panel { position:fixed; top:0; right:0; width:75%; height:100%; background:#070707; padding:40px 20px; z-index:9998; overflow:auto; transform: translateX(100%); transition: transform 320ms cubic-bezier(.22,.9,.2,1); }
+.mobile-menu-panel a { display:block; color:#fff; padding:12px 0; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.04); }
+.mobile-menu-panel a:first-child { margin-top:40px; }
+.mobile-menu-panel.active { transform: translateX(0); }
+/* Hide mobile-only items by default, show them on narrow viewports */
+.mobile-only { display: none; }
+@media (max-width: 768px) { 
+  .mobile-navbar{ display:flex } 
+  .desktop-only { display:none !important }
+  .mobile-only { display:block !important }
+}
+</style>
+
+<div class="mobile-navbar">
+  <div class="logo">
+    <img src="icoinred/logo-88256519050c5e84fcbd2120a81b2097.svg" alt="BKCHANGE logo">
+  </div>
+  <div class="navbar-actions">
+    <div class="mobile-menu-btn" id="mobileMenuToggle">☰</div>
+  </div>
+</div>
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+  <a href="index.html">Home</a>
+  <a href="auth.html#login">Login</a>
+  <a href="auth.html#register">Sign Up</a>
+  <a href="about.contact/about.html">About / Contact</a>
+</div>
+
+<script>
+// Mobile menu: robust toggle, link-close, outside click, and Esc handling
+(function(){
+  const btn = document.getElementById('mobileMenuToggle');
+  const panel = document.getElementById('mobileMenuPanel');
+  if(!btn || !panel) return;
+
+  btn.setAttribute('role','button');
+  btn.setAttribute('aria-controls','mobileMenuPanel');
+  btn.setAttribute('aria-expanded','false');
+
+  function openPanel(){
+    panel.classList.add('active');
+    btn.setAttribute('aria-expanded','true');
+  }
+  function closePanel(){
+    panel.classList.remove('active');
+    btn.setAttribute('aria-expanded','false');
+  }
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(panel.classList.contains('active')){
+      closePanel();
+    } else {
+      openPanel();
+    }
+  });
+
+  // Close when clicking any link inside the panel
+  panel.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      closePanel();
+    });
+  });
+
+  // Prevent clicks inside panel bubbling
+  panel.addEventListener('click', function(e){ e.stopPropagation(); });
+
+  // Close when clicking outside
+  document.addEventListener('click', function(e){
+    if(panel.classList.contains('active') && !panel.contains(e.target) && !btn.contains(e.target)){
+      closePanel();
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' || e.key === 'Esc'){
+      if(panel.classList.contains('active')){
+        closePanel();
+        btn.focus();
+      }
+    }
+  });
+})();
+</script>
+<script>
+// Fallback: ensure mobile navbar is visible on small viewports
+(function(){
+  const mobileSelector = '.mobile-navbar';
+  const desktopNavSelector = 'header nav, nav.main-nav, nav';
+
+  function updateMobileVisibility(){
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const mobile = document.querySelector(mobileSelector);
+    const desktopNavs = document.querySelectorAll(desktopNavSelector);
+    if(mobile){
+      mobile.style.display = isMobile ? 'flex' : 'none';
+    }
+    desktopNavs.forEach(n => {
+      if(n && n.style){
+        n.style.display = isMobile ? 'none' : '';
+      }
+    });
+  }
+
+  window.addEventListener('resize', updateMobileVisibility);
+  // run once on load
+  updateMobileVisibility();
+})();
+</script>
+
+<!-- Mobile Theme Toggle -->
+<script>
+(function(){
+  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+  const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+  
+  if (!mobileThemeToggle || !mobileThemeIcon) return;
+  
+  // Initialize theme on page load
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+  }
+  
+  // Update the theme icon based on current theme
+  function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+      mobileThemeIcon.classList.remove('fa-sun');
+      mobileThemeIcon.classList.add('fa-moon');
+    } else {
+      mobileThemeIcon.classList.remove('fa-moon');
+      mobileThemeIcon.classList.add('fa-sun');
+    }
+  }
+  
+  // Handle theme toggle
+  mobileThemeToggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+  
+  // Initialize on load
+  initTheme();
+})();
+</script>
+  <!-- END: Mobile Menu Injected by updater -->
+</body>
+
+</html>
