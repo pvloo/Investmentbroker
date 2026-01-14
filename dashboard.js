@@ -3,29 +3,10 @@
 // Check authentication
 function checkAuth() {
     try {
-        // Demo/Testing mode - allow access without auth
-        const demoMode = localStorage.getItem('DEMO_MODE') === 'true';
-        if (demoMode) {
-            // Set demo user data if not exists
-            if (!localStorage.getItem('userData')) {
-                localStorage.setItem('userData', JSON.stringify({
-                    firstName: 'Demo',
-                    email: 'demo@example.com',
-                    referralCode: 'DEMO_' + Math.random().toString(36).slice(2, 8).toUpperCase()
-                }));
-            }
-            const ud = JSON.parse(localStorage.getItem('userData') || '{}');
-            const name = (ud && (ud.firstName || ud.email)) ? (ud.firstName || ud.email) : 'Demo User';
-            const disp = document.getElementById('userDisplay'); 
-            if (disp) disp.textContent = name;
-            return true;
-        }
-        
         const authRaw = localStorage.getItem('authToken');
         if (!authRaw) { 
-            // Enable demo mode by default for localhost testing
-            localStorage.setItem('DEMO_MODE', 'true');
-            return checkAuth(); // Retry with demo mode enabled
+            window.location.href = 'auth.html';
+            return false;
         }
         const parsed = JSON.parse(authRaw || '{}');
         const token = parsed.token;
@@ -36,9 +17,8 @@ function checkAuth() {
         const disp = document.getElementById('userDisplay'); if (disp) disp.textContent = name;
         return true;
     } catch (e) { 
-        // If auth check fails, enable demo mode for testing
-        localStorage.setItem('DEMO_MODE', 'true');
-        return checkAuth();
+        window.location.href = 'auth.html';
+        return false;
     }
 }
 
@@ -265,44 +245,6 @@ function saveUserState() {
     localStorage.setItem('userData', JSON.stringify(userState.userData));
 }
 
-// Initialize demo data if first visit
-function initializeDemoData() {
-    if (localStorage.getItem('userBalance') === '0' || localStorage.getItem('userBalance') === null) {
-        // Set initial balance
-        userState.balance = 5000;
-        
-        // Add sample transactions
-        userState.transactions = [
-            { type: 'deposit', amount: 1000, currency: 'BTC', timestamp: new Date(Date.now() - 7*24*60*60*1000).toISOString(), status: 'completed' },
-            { type: 'deposit', amount: 2000, currency: 'ETH', timestamp: new Date(Date.now() - 5*24*60*60*1000).toISOString(), status: 'completed' },
-            { type: 'withdraw', amount: 500, currency: 'USDT', timestamp: new Date(Date.now() - 2*24*60*60*1000).toISOString(), status: 'completed' }
-        ];
-        
-        // Add sample profit history
-        userState.profitHistory = [
-            { amount: 150.50, source: 'Starter Plan', timestamp: new Date(Date.now() - 4*24*60*60*1000).toISOString(), status: 'completed' },
-            { amount: 75.25, source: 'Referral Bonus', timestamp: new Date(Date.now() - 1*24*60*60*1000).toISOString(), status: 'completed' }
-        ];
-        
-        // Add sample investment
-        userState.activeInvestments = [
-            { 
-                id: 'inv-demo-1', 
-                planId: 'starter', 
-                amount: 5000, 
-                startDate: new Date(Date.now() - 10*24*60*60*1000).toISOString(), 
-                endDate: new Date(Date.now() + 35*24*60*60*1000).toISOString(), 
-                expectedRoi: 300, 
-                status: 'active' 
-            }
-        ];
-        
-        saveUserState();
-        // Don't reload - just update the UI
-        updateMobileBalance();
-    }
-}
-
 
 function handleDeposit(amount, currency) {
     if (amount <= 0) return { success: false, message: 'Invalid amount' };
@@ -422,9 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Check authentication first
     if (!checkAuth()) return;
-
-    // Initialize demo data on first visit (optional - comment out if not needed)
-    initializeDemoData();
 
     // Initialize mobile dashboard if on mobile
     initMobileDashboard();
@@ -1059,9 +998,7 @@ function connect() { ws = new WebSocket(WS_URL); ws.onopen = () => { console.log
 try { connect(); } catch (e) { console.error('WS failed', e) }
 function formatUSD(n) { return typeof n === 'number' ? n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }) : n }
 
-// fallback/mock updates
-const mockBase = { BTCUSDT: 60000, ETHUSDT: 3500, BNBUSDT: 450, SOLUSDT: 120, XRPUSDT: 0.6, DOGEUSDT: 0.08 };
-setInterval(() => { pairIds.forEach(p => { const el = uiMap[p].priceEl; const ch = uiMap[p].changeEl; if (el && (el.textContent === '--' || el.textContent === '')) { const base = mockBase[p]; const price = +(base * (1 + (Math.random() - 0.5) * 0.01)).toFixed(6); el.textContent = formatUSD(price); const pct = (Math.random() - 0.5) * 4; ch.textContent = pct.toFixed(2) + '%'; ch.style.color = pct >= 0 ? 'limegreen' : 'tomato'; } }) }, 2200);
+// Note: If WebSocket connection fails, prices will show as '--' until real data is available
 
 // ----------------- TradingView widgets -----------------
 // We'll load s3.tradingview.com/tv.js once and create widgets for selected symbols
@@ -1163,8 +1100,11 @@ applyFilterAndRender('all');
 // SWAP CRYPTO
 function handleCryptoSwap(fromCrypto, toCrypto, amount) {
     if (amount <= 0) return { success: false, message: 'Invalid amount' };
-    const mockRate = { 'BTC': 1, 'ETH': 15, 'USDT': 40000, 'BNB': 300 };
-    const rate = (mockRate[toCrypto] || 1) / (mockRate[fromCrypto] || 1);
+    // TODO: Implement real exchange rate API integration with live market data
+    console.warn('Swap feature requires real exchange rate API implementation');
+    return { success: false, message: 'Swap feature requires API integration' };
+    /*
+    const rate = getExchangeRate(fromCrypto, toCrypto);
     const swapResult = {
         id: `swap-${Date.now()}`,
         from: fromCrypto,
@@ -1173,10 +1113,11 @@ function handleCryptoSwap(fromCrypto, toCrypto, amount) {
         toAmount: (amount * rate).toFixed(6),
         rate: rate.toFixed(6),
         timestamp: new Date().toISOString(),
-        status: 'completed'
+        status: 'pending'
     };
     userState.swaps.push(swapResult);
-    return { success: true, message: 'Swap completed', swap: swapResult };
+    return { success: true, message: 'Swap initiated', swap: swapResult };
+    */
 }
 
 // MANAGED ACCOUNTS

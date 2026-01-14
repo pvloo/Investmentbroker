@@ -371,25 +371,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // ============ reCAPTCHA Initialization ============
 (function () {
-  const TEST_SITEKEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-  const localHosts = ['localhost', '127.0.0.1', '::1'];
-  
   // Find all reCAPTCHA containers
   const recaptchaElements = document.querySelectorAll('.captcha-container .g-recaptcha');
   
   if (recaptchaElements.length === 0) return;
-
-  // Check if we're in dev mode
-  const params = new URLSearchParams(window.location.search);
-  const paramForceDev = params.get('recaptcha_dev') === '1';
-  if (paramForceDev) localStorage.setItem('recaptchaDev', '1');
-  
-  const lsForceDev = localStorage.getItem('recaptchaDev') === '1';
-  const isLocalHost = localHosts.includes(location.hostname) || location.protocol === 'file:';
-  const isDevMode = paramForceDev || lsForceDev || isLocalHost;
-
-  // Always use test key for v2 checkbox (requires no backend verification)
-  const chosenKey = TEST_SITEKEY;
 
   // Initialize each reCAPTCHA element
   function renderRecaptcha(element) {
@@ -400,8 +385,15 @@ window.addEventListener('DOMContentLoaded', () => {
       
       if (window.grecaptcha && typeof grecaptcha.render === 'function') {
         element.innerHTML = ''; // Clear any existing content
+        // Use production site key from data attribute
+        const prodSiteKey = element.getAttribute('data-prod-sitekey');
+        const siteKey = prodSiteKey || element.getAttribute('data-sitekey');
+        if (!siteKey) {
+          console.error('No reCAPTCHA site key configured for ' + element.id);
+          return;
+        }
         grecaptcha.render(element.id, {
-          sitekey: chosenKey,
+          sitekey: siteKey,
           theme: 'dark'
         });
         console.log('reCAPTCHA rendered for ' + element.id);

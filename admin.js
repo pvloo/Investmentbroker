@@ -606,37 +606,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== NOTIFICATIONS MANAGEMENT =====
 
-// Initialize notifications from localStorage or sample data
+// Initialize notifications from localStorage only (no sample data)
 function initializeNotifications() {
   let notifications = localStorage.getItem('notifications');
   if (!notifications) {
-    // Initialize with sample notifications if none exist
-    notifications = [
-      {
-        id: 1,
-        user: 'Sanju Talukder',
-        message: 'joined the system',
-        type: 'user-plus',
-        time: '7 hours ago',
-        read: false
-      },
-      {
-        id: 2,
-        user: 'Piyush Thakur',
-        message: 'requested KYC verification',
-        type: 'kyc',
-        time: '8 hours ago',
-        read: false
-      },
-      {
-        id: 3,
-        user: 'Madison Lopez',
-        message: 'joined the system',
-        type: 'user-plus',
-        time: '2 days ago',
-        read: false
-      }
-    ];
+    // Start with empty notifications array - load real data from API
+    notifications = [];
     localStorage.setItem('notifications', JSON.stringify(notifications));
   }
   
