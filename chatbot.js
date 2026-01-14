@@ -193,87 +193,87 @@ async function fetchCryptoPrice(query) {
     }
 }
 
-// ============== INTELLIGENT RESPONSE FUNCTION ==============
+// // ============== INTELLIGENT RESPONSE FUNCTION ==============
 
-// AI Context and conversation history
-const conversationHistory = [];
+// // AI Context and conversation history
+// const conversationHistory = [];
+// const OPENAI_API_KEY = 'REMOVED_SECRET';
 
+// async function getAIResponse(query) {
+//     // Only use AI if API key is set, otherwise fall back to knowledge base
+//     if (!OPENAI_API_KEY || OPENAI_API_KEY.trim() === '') {
+//         return getResponse(query);
+//     }
 
-async function getAIResponse(query) {
-    // Only use AI if API key is set, otherwise fall back to knowledge base
-    if (!OPENAI_API_KEY || OPENAI_API_KEY.trim() === '') {
-        return getResponse(query);
-    }
+//     try {
+//         // Add user message to history
+//         conversationHistory.push({
+//             role: "user",
+//             content: query
+//         });
 
-    try {
-        // Add user message to history
-        conversationHistory.push({
-            role: "user",
-            content: query
-        });
+//         // Keep conversation history manageable (last 10 exchanges)
+//         if (conversationHistory.length > 20) {
+//             conversationHistory.shift();
+//         }
 
-        // Keep conversation history manageable (last 10 exchanges)
-        if (conversationHistory.length > 20) {
-            conversationHistory.shift();
-        }
+//         const systemPrompt = `You are River, a friendly and helpful AI customer support assistant for Rivertrade, a cryptocurrency investment platform. 
+// Your personality is warm, professional, and conversational - like a real human support agent who genuinely wants to help.
+// You have extensive knowledge about:
+// - Account registration and management
+// - Deposits and withdrawals
+// - Investment plans and ROI
+// - Copy trading and referral programs
+// - Crypto prices and market info
+// - Platform security and KYC verification
+// - Fees, taxes, and compliance
+// - Technical support
 
-        const systemPrompt = `You are River, a friendly and helpful AI customer support assistant for Rivertrade, a cryptocurrency investment platform. 
-Your personality is warm, professional, and conversational - like a real human support agent who genuinely wants to help.
-You have extensive knowledge about:
-- Account registration and management
-- Deposits and withdrawals
-- Investment plans and ROI
-- Copy trading and referral programs
-- Crypto prices and market info
-- Platform security and KYC verification
-- Fees, taxes, and compliance
-- Technical support
+// Guidelines:
+// - Be friendly and use casual language
+// - Use contractions and natural speech patterns
+// - Ask follow-up questions if you need clarification
+// - Provide clear, concise answers
+// - If you're unsure, admit it and suggest contacting support at support@rivertrade.com
+// - Keep responses conversational, not robotic`;
 
-Guidelines:
-- Be friendly and use casual language
-- Use contractions and natural speech patterns
-- Ask follow-up questions if you need clarification
-- Provide clear, concise answers
-- If you're unsure, admit it and suggest contacting support at support@rivertrade.com
-- Keep responses conversational, not robotic`;
+//         const response = await fetch('https://api.openai.com/v1/chat/completions', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${OPENAI_API_KEY}`
+//             },
+//             body: JSON.stringify({
+//                 model: "gpt-3.5-turbo",
+//                 messages: [
+//                     { role: "system", content: systemPrompt },
+//                     ...conversationHistory
+//                 ],
+//                 temperature: 0.7,
+//                 max_tokens: 500
+//             })
+//         });
 
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    ...conversationHistory
-                ],
-                temperature: 0.7,
-                max_tokens: 500
-            })
-        });
+//         if (!response.ok) {
+//             console.error('OpenAI API error:', response.status);
+//             return getResponse(query);
+//         }
 
-        if (!response.ok) {
-            console.error('OpenAI API error:', response.status);
-            return getResponse(query);
-        }
+//         const data = await response.json();
+//         const aiReply = data.choices[0].message.content;
 
-        const data = await response.json();
-        const aiReply = data.choices[0].message.content;
+//         // Add AI response to history
+//         conversationHistory.push({
+//             role: "assistant",
+//             content: aiReply
+//         });
 
-        // Add AI response to history
-        conversationHistory.push({
-            role: "assistant",
-            content: aiReply
-        });
-
-        return aiReply;
-    } catch (error) {
-        console.error('AI error, falling back to knowledge base:', error);
-        return getResponse(query);
-    }
-}
+//         return aiReply;
+//     } catch (error) {
+//         console.error('AI error, falling back to knowledge base:', error);
+//         return getResponse(query);
+//     }
+// }
 
 function getResponse(query) {
     const lowerQuery = query.toLowerCase().trim();
