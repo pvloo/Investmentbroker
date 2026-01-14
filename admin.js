@@ -83,13 +83,17 @@ function updateStatCard(index, value, change, type) {
 
 // Update transactions table with data
 function updateTransactionsTable() {
-  const transactions = [
-    { id: '12345', user: 'Sanju Talukder', avatar: 'ST', amount: '$1,250.00', type: 'Deposit', status: 'Completed', date: '2025-01-08 14:30' },
-    { id: '12344', user: 'Piyush Thakur', avatar: 'PT', amount: '$850.50', type: 'Withdrawal', status: 'Pending', date: '2025-01-08 12:15' },
-    { id: '12343', user: 'Madison Lopez', avatar: 'ML', amount: '$2,500.00', type: 'Investment', status: 'Completed', date: '2025-01-08 10:45' },
-    { id: '12342', user: 'Ugwu Kingsley', avatar: 'UK', amount: '$450.00', type: 'Deposit', status: 'Failed', date: '2025-01-08 09:20' },
-    { id: '12341', user: 'Oussama Kal', avatar: 'OK', amount: '$3,200.00', type: 'Investment', status: 'Completed', date: '2025-01-07 16:55' }
-  ];
+  const transactions = [];
+  
+  // Load transactions from localStorage or API
+  const storedTransactions = localStorage.getItem('transactions');
+  if (storedTransactions) {
+    try {
+      return JSON.parse(storedTransactions);
+    } catch (e) {
+      console.error('Error loading transactions:', e);
+    }
+  }
   
   // Store in localStorage
   localStorage.setItem('transactions', JSON.stringify(transactions));
@@ -1419,19 +1423,19 @@ function viewKycDetails(id) {
           </div>
           <div class="detail-row">
             <span class="detail-label">User Name:</span>
-            <span class="detail-value">Piyush Thakur</span>
+            <span class="detail-value">-- Loading from API --</span>
           </div>
           <div class="detail-row">
             <span class="detail-label">Email:</span>
-            <span class="detail-value">piyush@example.com</span>
+            <span class="detail-value">-- Loading from API --</span>
           </div>
           <div class="detail-row">
             <span class="detail-label">Document Type:</span>
-            <span class="detail-value">Passport</span>
+            <span class="detail-value">-- Loading from API --</span>
           </div>
           <div class="detail-row">
             <span class="detail-label">Submitted Date:</span>
-            <span class="detail-value">2025-01-08</span>
+            <span class="detail-value">-- Loading from API --</span>
           </div>
           <div class="detail-row">
             <span class="detail-label">Status:</span>
