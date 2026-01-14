@@ -197,7 +197,7 @@ async function fetchCryptoPrice(query) {
 
 // AI Context and conversation history
 const conversationHistory = [];
-// const OPENAI_API_KEY = 'REMOVED_SECRET';
+
 
 async function getAIResponse(query) {
     // Only use AI if API key is set, otherwise fall back to knowledge base
