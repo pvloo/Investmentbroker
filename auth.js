@@ -5,15 +5,29 @@ const registerForm = document.getElementById("registerForm");
 const loginForm = document.getElementById("loginForm");
 
 // ============ reCAPTCHA v2 Checkbox Verification ============
-function verifyRecaptcha() {
+function verifyRecaptcha(formId) {
   try {
     if (!window.grecaptcha) {
       console.warn('reCAPTCHA not loaded');
       return false;
     }
 
-    // Get the reCAPTCHA response from the v2 checkbox widget
-    const response = window.grecaptcha.getResponse();
+    // Get the specific form's reCAPTCHA widget
+    const form = document.getElementById(formId);
+    if (!form) {
+      console.error('Form not found: ' + formId);
+      return false;
+    }
+
+    const recaptchaElement = form.querySelector('.g-recaptcha');
+    if (!recaptchaElement) {
+      console.warn('reCAPTCHA element not found in form');
+      return false;
+    }
+
+    // Get the reCAPTCHA widget ID (or find it by element)
+    const widgetId = recaptchaElement.getAttribute('data-widget-id');
+    const response = widgetId !== null ? window.grecaptcha.getResponse(widgetId) : window.grecaptcha.getResponse();
     
     if (response && response.length > 0) {
       console.log('reCAPTCHA verified successfully');
