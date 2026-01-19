@@ -7,126 +7,20 @@
   <title>Sign In / Register</title>
 
   <!-- Font Awesome Icons -->
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="auth.css" />
-  <link rel="stylesheet" href="lang-style/language.css" />
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="stylesheet" href="language.css" />
   
-  <style>
-    /* Optimize ticker tape for all devices */
-    .tradingview-widget-container {
-      background: rgb(96, 37, 37) !important;
-      overflow: hidden !important;
-      contain: layout style paint;
-      min-height: 50px;
-    }
 
-    .tradingview-widget-container iframe {
-      height: 50px !important;
-      min-height: 50px !important;
-    }
-
-    /* Mobile: Show full ticker without restrictions */
-    @media (max-width: 768px) {
-      .tradingview-widget-container {
-        min-height: 45px;
-      }
-      
-      .tradingview-widget-container iframe {
-        height: 45px !important;
-        min-height: 45px !important;
-      }
-    }
-
-    /* Tablet/iPad */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .tradingview-widget-container {
-        min-height: 48px;
-      }
-      
-      .tradingview-widget-container iframe {
-        height: 48px !important;
-        min-height: 48px !important;
-      }
-    }
-
-    /* Desktop */
-    @media (min-width: 1025px) {
-      .tradingview-widget-container {
-        min-height: 50px;
-      }
-      
-      .tradingview-widget-container iframe {
-        height: 50px !important;
-        min-height: 50px !important;
-      }
-    }
-
-    /* Smartwatch */
-    @media (max-width: 319px) {
-      .tradingview-widget-container {
-        min-height: 40px;
-      }
-      
-      .tradingview-widget-container iframe {
-        height: 40px !important;
-        min-height: 40px !important;
-      }
-    }
-  </style>
-
-  <script>
-    // Initialize reCAPTCHA v3 with Production Key Support
-    const RECAPTCHA_PROD_SITE_KEY = 'YOUR_PRODUCTION_SITE_KEY_HERE'; // Replace with your production key
-    const RECAPTCHA_TEST_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-    
-    function onRecaptchaLoad() {
-      if (window.grecaptcha) {
-        const isProduction = RECAPTCHA_PROD_SITE_KEY !== 'YOUR_PRODUCTION_SITE_KEY_HERE';
-        const siteKey = isProduction ? RECAPTCHA_PROD_SITE_KEY : RECAPTCHA_TEST_SITE_KEY;
-        window.grecaptcha.ready(() => {
-          window.recaptchaReady = true;
-          window.recaptchaSiteKey = siteKey;
-        });
-      }
-    }
-  </script>
 </head>
 
 <body>
   <header>
-
-        <!-- TradingView Ticker Tape Widget (Optimized for all devices) -->
-    <div class="tradingview-widget-container">
-      <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-          "symbols"; [
-            {"title": "BTC/USD", "proName": "BITSTAMP:BTCUSD"},
-            {"title": "ETH/USD", "proName": "BITSTAMP:ETHUSD"},
-            {"title": "BNB/USD", "proName": "BINANCE:BNBUSD"},
-            {"title": "XRP/USD", "proName": "BITSTAMP:XRPUSD"},
-            {"title": "SOL/USD", "proName": "BITSTAMP:SOLUSD"},
-            {"title": "DOGE/USD", "proName": "BITSTAMP:DOGEUSD"},
-            {"title": "ADA/USD", "proName": "BITSTAMP:ADAUSD"},
-            {"title": "LINK/USD", "proName": "BITSTAMP:LINKUSD"},
-            {"title": "LTC/USD", "proName": "BITSTAMP:LTCUSD"},
-            {"title": "USD/EUR", "proName": "FX_IDC:EURUSD"},
-            {"title": "S&P 500", "proName": "OANDA:SPX500USD"},
-            {"title": "Nasdaq 100", "proName": "OANDA:NAS100USD"}
-          ],
-          "colorTheme"; "dark",
-          "isTransparent"; true,
-          "displayMode"; "adaptive",
-          "locale"; "en",
-          "showSymbolLogo"; true
-        }
-      </script>
-    </div>
-    <!-- TradingView Widget END -->
 
 
     <nav>
@@ -231,10 +125,6 @@
             regulatory purpose in accordance with GDPR</label>
         </div>
 
-
-        <div class="captcha-container">
-          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE" data-prod-sitekey="YOUR_PRODUCTION_SITE_KEY"></div>
-        </div>
         <button type="submit" class="btn">Register</button>
         <div id="registerMessage" class="form-message" aria-live="polite"></div>
 
@@ -260,9 +150,6 @@
           <a href="#">Forgot Password?</a>
         </div>
 
-        <div class="captcha-container">
-          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE" data-prod-sitekey="YOUR_PRODUCTION_SITE_KEY"></div>
-        </div>
         <button type="submit" class="btn">Sign In</button>
         <div id="loginMessage" class="form-message" aria-live="polite"></div>
         <p class="signup-text">
@@ -274,7 +161,7 @@
 
   <script src="auth-service.js"></script>
   <script src="auth.js"></script>
-  <script src="lang-style/language.js"></script>
+  <script src="language.js"></script>
 <!-- START: Mobile Menu Injected by updater -->
 <style>
 /* Mobile menu minimal styles (injected) */
@@ -321,9 +208,7 @@
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' || e.key === 'Esc'){ panel.classList.remove('active'); } });
 })();
 </script>
-  <script src="./frontend-api-client.js"></script>
-  <script src="./auth-api.js"></script>
-  <script src="./frontend-api.js"></script>
+
   <!-- END: Mobile Menu Injected by updater -->
 </body>
 

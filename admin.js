@@ -30,6 +30,9 @@ window.addEventListener("load", () => {
   
   // Setup chart event listeners
   setupChartFilters();
+  
+  // Setup smooth scroll navigation
+  setupSmoothScrollNavigation();
 })
 
 // Close notification
@@ -126,6 +129,89 @@ function closeSidebar() {
   sidebar.classList.remove("show")
   overlay.classList.remove("show")
 }
+
+// Smooth scroll navigation for sidebar links
+function setupSmoothScrollNavigation() {
+  // Get all navigation links
+  const navLinks = document.querySelectorAll('.nav-list a[href^="#"], .submenu a[href^="#"]');
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      
+      // Check if this is a submenu toggle (has onclick attribute with toggleSubmenu)
+      const isSubmenuToggle = this.hasAttribute('onclick') && this.getAttribute('onclick').includes('toggleSubmenu');
+      
+      if (!isSubmenuToggle && href.startsWith('#')) {
+        e.preventDefault();
+        
+        const targetId = href.substring(1); // Remove the # character
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Smooth scroll to the target element
+          const headerHeight = document.querySelector('.header')?.offsetHeight || 70;
+          const targetPosition = targetElement.offsetTop - headerHeight - 20; // 20px extra padding
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Close sidebar on mobile after navigation
+          if (window.innerWidth <= 768) {
+            closeSidebar();
+          }
+          
+          // Update active nav item
+          updateActiveNavItem(href);
+        }
+      }
+    });
+  });
+}
+
+// Update active navigation item based on current scroll position
+function updateActiveNavItem(targetHref) {
+  const navLinks = document.querySelectorAll('.nav-list a[href^="#"], .submenu a[href^="#"]');
+  
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === targetHref) {
+      // Remove active from all
+      document.querySelectorAll('.nav-list .nav-item, .submenu li').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Add active to current
+      const parentItem = link.closest('.nav-item, li');
+      if (parentItem) {
+        parentItem.classList.add('active');
+      }
+    }
+  });
+}
+
+// Optional: Update active nav item on scroll
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('[id]');
+  const headerHeight = document.querySelector('.header')?.offsetHeight || 70;
+  
+  let currentSection = null;
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - headerHeight - 50;
+    if (window.scrollY >= sectionTop) {
+      currentSection = section.id;
+    }
+  });
+  
+  if (currentSection) {
+    const activeLink = document.querySelector(`.nav-list a[href="#${currentSection}"], .submenu a[href="#${currentSection}"]`);
+    if (activeLink) {
+      updateActiveNavItem(`#${currentSection}`);
+    }
+  }
+});
 
 // Toggle dropdown
 let currentDropdown = null

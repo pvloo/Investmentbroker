@@ -3,15 +3,20 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="RiverTrade" />
+  <meta name="theme-color" content="#111216" />
   <title>Crypto Dashboard — Neutral Theme + Live Binance + TradingView</title>
   <!-- Font Awesome (icons) -->
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Dashboard CSS -->
   <link rel="stylesheet" href="dashboard.css" />
-  <link rel="stylesheet" href="lang-style/language.css" />
   <link rel="stylesheet" href="smartwatch-styles.css" />
 
 </head>
@@ -58,13 +63,6 @@
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
       </a>
-      <select id="languageSelector" class="language-selector" title="Select language" aria-label="Language selector">
-        <option value="en">English</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-        <option value="de">German</option>
-        <option value="zh">Chinese</option>
-      </select>
       <button id="themeToggle" class="toggle" aria-pressed="false" title="Toggle light / dark">
         <i id="themeIcon" class="fa-regular fa-sun"></i>
         <span id="themeLabel">Light</span>
@@ -80,25 +78,14 @@
       <!-- Welcome Banner -->
       <div class="welcome-banner">
         <div class="welcome-header">
-          <h2>Welcome to RiverTrade</h2>
           <div class="mobile-controls">
             <a href="index.html" class="toggle" title="Back to home">
               <i class="fa-solid fa-house"></i>
             </a>
-            <select id="languageSelector" class="language-selector" title="Select language" aria-label="Language selector">
-              <option value="en">English</option>
-              <option value="es">Spanish</option>
-              <option value="fr">French</option>
-              <option value="de">German</option>
-              <option value="zh">Chinese</option>
-            </select>
             <button id="themeToggle" class="toggle mobile-theme-toggle" aria-pressed="false" title="Toggle light / dark">
               <i id="themeIcon" class="fa-regular fa-sun"></i>
             </button>
           </div>
-          <button class="welcome-close" aria-label="Close welcome">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
         </div>
       </div>
 
@@ -119,7 +106,7 @@
           <!-- Available Balance -->
           <div class="balance-item">
             <div class="balance-label">Available Balance</div>
-            <div class="balance-amount" id="mobileAvailableBalance">$0.00</div>
+            <div class="balance-amount" id="mobileAvailableBalance" data-balance-amount>$0.00</div>
           </div>
 
           <!-- Locked Balance -->
@@ -127,7 +114,7 @@
             <div class="balance-label">
               <i class="fa-solid fa-lock"></i> Locked Balance
             </div>
-            <div class="balance-amount locked-amount" id="mobileLockedBalance">$0.00</div>
+            <div class="balance-amount locked-amount" id="mobileLockedBalance" data-balance-amount>$0.00</div>
           </div>
         </div>
 
@@ -139,7 +126,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Total Profit</div>
-              <div class="stat-value" id="mobileTotalProfit">$0.00</div>
+              <div class="stat-value" id="mobileTotalProfit" data-balance-amount>$0.00</div>
             </div>
           </div>
 
@@ -149,7 +136,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Bonus</div>
-              <div class="stat-value" id="mobileBonus">$0.00</div>
+              <div class="stat-value" id="mobileBonus" data-balance-amount>$0.00</div>
             </div>
           </div>
 
@@ -159,7 +146,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Referral Bonus</div>
-              <div class="stat-value" id="mobileReferralBonus">$0.00</div>
+              <div class="stat-value" id="mobileReferralBonus" data-balance-amount>$0.00</div>
             </div>
           </div>
 
@@ -169,7 +156,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Withdrawals</div>
-              <div class="stat-value" id="mobileWithdrawals">$0.00</div>
+              <div class="stat-value" id="mobileWithdrawals" data-balance-amount>$0.00</div>
             </div>
           </div>
         </div>
@@ -427,7 +414,6 @@
 <!-- Dashboard functionality -->
 <script src="auth-service.js"></script>
 <script src="dashboard.js"></script>
-<script src="lang-style/language.js"></script>
 
 <script>
 // Sidebar collapse toggle

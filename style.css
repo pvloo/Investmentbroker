@@ -33,10 +33,12 @@
 }
 
 header {
-  /* background-image: url("./Image/mobile/1920_x_988.jpg"); */
-  height: 100vh;
+  /* height: 100vh;
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
+  /* background-image: url("./Image/mobile/bg1.jpg"); */
+  /* background-image: url("./Image/mobile/desktop-BATS-Trading_Page-wide_2x.jpg"); */
+  padding-bottom: 20px;
 
 }
 
@@ -44,11 +46,6 @@ header {
    (prevents cropping and overflow on phones). Video/overlay remains. */
 @media (max-width: 768px) {
   header {
-    background-image: none !important;
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: auto;
-    height: auto; /* allow header to size to content/video */
     padding-top: 8px;
     padding-bottom: 8px;
   }
@@ -63,13 +60,7 @@ header {
   }
 }
 
-video {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  contain: layout style paint;
-  will-change: transform;
-}
+
 
 header nav {
   display: flex;
@@ -101,12 +92,12 @@ header nav ul li a {
   color: black;
   padding-block: 0.5em;
   border-radius: 30px;
-  padding-inline: 2em
+  padding-inline: 2em;
 }
 
 .botton:hover a {
-  color: white;
-  background-color: rgb(130, 114, 97)
+  /* color: white; */
+  background-color: rgb(96, 37, 37);
 }
 
 header h1 {
@@ -120,27 +111,20 @@ header h1 {
 }
 
 
-/* .option {
-  background-image: url("./Image/mobile/mobile_homepage_investing_4x.jpeg");
-  height: 100vh;
-  background-position: center;
-  background-size: cover;
-  margin-top: 150PX;
-} */
-
 .tion {
-  color: rgb(137, 117, 79);
+  color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   font-size: 2em;
-  margin-bottom: 0.4em;
-  padding-top: 200px;
+  /* margin-bottom: 0.4em; */
+  
+  
 }
 
 
 .option,
 P {
-  color: rgb(130, 114, 97);
+  color: rgb(223, 221, 218);
   text-align: center;
   font-size: 1em;
   line-height: 1.5em;
@@ -153,14 +137,13 @@ P {
   justify-content: center;
   background-color: black;
   padding-bottom: 30px;
-  /* background-image: url("./Image/mobile/mobile_crypto_hero_3.jpg"); */
   background-position: center;
   /* background-size: cover; */
 }
 
 .packages {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   margin-top: 50px;
   padding: 40px;
@@ -175,32 +158,13 @@ P {
 }
 
 
-.main-btn {
-  margin-top: 30px;
-  text-align: center;
-  align-items: center;
-  color: black;
-}
-
-
 .card {
-  /* background-color: rgb(96, 37, 37); */
-  /* text-align: center; */
-  /* padding: 80px 120px;
-  border-radius: 6px; */
-  /* display: block;
-  margin: 0 auto; */
-  /* padding-bottom: 1em;
-  margin-top: 80px; */
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); */
-  /* transition: transform 0.3s, box-shadow 0.3s; */
   position: relative;
 }
 
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgb(96, 37, 37);
 }
 
 .card h2 {
@@ -226,7 +190,7 @@ P {
 
 button {
   background: rgb(96, 37, 37);
-  color: black;
+  color: white;
   border-radius: 8px;
   padding: 15px 45px;
   font-weight: bold;
@@ -234,7 +198,7 @@ button {
 }
 
 button:hover {
-  background: rgb(130, 114, 97);
+  background: rgb(10, 10, 10);
 }
 
 /*** Bitcoin Calculator ***/
@@ -262,7 +226,7 @@ button:hover {
 }
 
 .message {
-  color: #d1d5db;
+  color: white;
   margin-bottom: 40px;
 }
 
@@ -296,21 +260,6 @@ button:hover {
   .desktop-only { display: none !important; }
 }
 
-/* Make header video scale nicely on small screens */
-@media (max-width: 768px) {
-  header { height: auto; padding-bottom: 16px; background-position: top; }
-  /* Ensure any full-viewport videos don't take the entire screen on mobile */
-  header video {
-    width: 100%;
-    height: auto; /* let video keep aspect ratio */
-    max-height: 55vh; /* cap height to a portion of viewport */
-    display: block;
-    object-fit: cover;
-  }
-  /* If there's a hero image background on header, give some top padding so content is visible */
-  header h1, header .tion { padding-top: 12px; }
-}
-
 /* Responsive adjustments for packages and footer */
 @media (max-width: 1024px) {
   .packages { grid-template-columns: repeat(2, 1fr); width: 90%; padding: 30px; gap: 20px; }
@@ -319,12 +268,12 @@ button:hover {
 
 @media (max-width: 768px) {
   .packages1 { padding: 30px 10px; }
-  .packages { grid-template-columns: 1fr; width: 95%; padding: 20px; gap: 16px; margin-top: 30px; }
+  .packages { grid-template-columns: 1fr; width: 95%; padding: 20px; gap: 16px; margin-top: 30px; justify-content: ;}
   /* Use same card background color as desktop so mobile matches desktop visuals */
-  .packages .card { padding: 18px; border-radius: 10px; background: rgb(96, 37, 37); color: #fff; }
-  .packages .card h2 { color: #fff; }
-  .packages .card p { color: rgba(255,255,255,0.9); }
-  .packages .card h3 { color: #fff; }
+  .packages .card { padding: 18px; border-radius: 10px; background: white; color: #fff; }
+  .packages .card h2 { color: black; }
+  .packages .card p { color: black; }
+  .packages .card h3 { color: black; }
   .packages .card h2 { font-size: 1.05rem; }
   .packages .card h3 { font-size: 1.1rem; }
 
@@ -340,17 +289,29 @@ button:hover {
   padding: 10px 15px;
   font-size: 1rem;
   border-radius: 8px;
-  border: none;
+  border: 2px solid #ddd;
   outline: none;
-  background: rgb(96, 37, 37);
-  color: #fff;
+  background: white;
+  color: #333;
   width: 150px;
   text-align: center;
+  transition: all 0.3s ease;
+}
+
+.form-input:hover {
+  border-color: #999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-input:focus {
-  background: #475569;
-  transition: 0.3s;
+  background: white;
+  border-color: rgb(130, 114, 97);
+  box-shadow: 0 0 0 3px rgba(130, 114, 97, 0.1);
+  color: #333;
+}
+
+.form-input::placeholder {
+  color: #999;
 }
 
 /* === Bitcoin Icon === */
@@ -369,10 +330,30 @@ button:hover {
 /* === Select Currency === */
 .select-currency {
   cursor: pointer;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.select-currency:hover {
+  border-color: #999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.select-currency:focus {
+  border-color: rgb(130, 114, 97);
+  box-shadow: 0 0 0 3px rgba(130, 114, 97, 0.1);
+  outline: none;
 }
 
 .select-currency option {
-  color: #000;
+  color: #333;
+  background: white;
+  padding: 8px;
 }
 
 /* === Info Text === */
@@ -389,8 +370,6 @@ button:hover {
 /*** Call To Action ***/
 .call-action-all {
   position: relative;
-  background: url('./Image/mobile/Investors_Hero.jpg');
-  background-size: cover;
   background-position: center;
 }
 
@@ -406,27 +385,15 @@ button:hover {
 .action-text h2 {
   margin: 15px 0 23px;
   font-size: 30px;
-  color: rgb(130, 114, 97);
+  color: white;
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .action-text p {
   font-size: 21px;
-  color: rgb(130, 114, 97);
+  color: white;
 }
-
-/* .call-action-all .action-btn .btn-primary {
-  font-size: 16px;
-  padding: 13px 25px;
-  max-width: 240px;
-  margin: 0 auto;
-  display: block;
-  margin-top: 40px;
-  background: transparent;
-} */
-
-
 
 /*** Call To Action End***/
 
@@ -518,7 +485,7 @@ button:hover {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid rgb(130, 114, 97);
+  border: 3px solid rgb(96, 37, 37);
 }
 
 /* === Testimonial Text === */
@@ -533,13 +500,13 @@ button:hover {
 .overview {
   font-weight: 600;
   font-size: 1.1rem;
-  color: rgb(130, 114, 97);
+  color: rgb(96, 37, 37);
   margin-bottom: 10px;
 }
 
 /* === Star Rating === */
 .star-rating {
-  color: rgb(130, 114, 97);
+  color: rgb(96, 37, 37);
 }
 
 .star-rating ul {
@@ -580,16 +547,18 @@ button:hover {
   .action-text h2 {
     font-size: 1.8rem;
     margin: 12px 0 16px;
-    color: rgb(130, 114, 97);
+    color: white;
     font-weight: 700;
     line-height: 1.3;
+    text-align: center;
   }
 
   .action-text p {
     font-size: 0.95rem;
-    color: rgb(180, 160, 140);
+    color: white;
     line-height: 1.5;
     margin-bottom: 10px;
+    text-align: center;
   }
 
   .action-text p br {
@@ -597,7 +566,7 @@ button:hover {
   }
 
   .bone button {
-    background: linear-gradient(135deg, rgb(130, 114, 97), rgb(150, 130, 110));
+    background: linear-gradient(135deg, rgb(96, 37, 37), rgb(96, 37, 37));
     color: white;
     padding: 12px 28px;
     font-size: 0.95rem;
@@ -610,7 +579,7 @@ button:hover {
 
   .bone button:active {
     transform: scale(0.98);
-    background: linear-gradient(135deg, rgb(110, 94, 77), rgb(130, 110, 90));
+    /* background: linear-gradient(135deg, rgb(96, 37, 37), rgb(96, 37, 37)); */
   }
 }
 
@@ -667,7 +636,7 @@ button:hover {
   .Customertestimonials h2 {
     font-size: 2rem;
     margin-bottom: 35px;
-    color: rgb(130, 114, 97);
+    color: rgb(96, 37, 37);
   }
 
   .testimonialtrack {
@@ -704,7 +673,7 @@ button:hover {
 
   .overview {
     font-size: 1rem;
-    color: rgb(130, 114, 97);
+    color: rgb(96, 37, 37);
   }
 
   .star-rating i {
@@ -764,7 +733,7 @@ button:hover {
 
   .overview {
     font-size: 0.95rem;
-    color: rgb(130, 114, 97);
+    color: rgb(96, 37, 37);
   }
 
   .star-rating {
@@ -871,300 +840,7 @@ button:hover {
 
 
 
-/* ---Worldmap step Start-- */
-.worldmap {
-  padding-top: 50px;
-  padding-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-  margin: 0 auto;
-}
 
-.containermap {
-  position: relative;
-  width: min(600px, 85vw);
-  height: min(600px, 85vw);
-  animation: rotate 60s linear infinite;
-  margin: 0 auto;
-}
-
-.world {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.world img {
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-  border-radius: 50%;
-  filter: saturate(1.3) brightness(1.1);
-  object-fit: cover;
-}
-
-.crypto {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-  animation: float 3s ease-in-out infinite;
-}
-
-.crypto img {
-  width: 45px;
-  height: 45px;
-}
-
-.crypto:hover {
-  transform: scale(1.2);
-}
-
-/* Positioning crypto logos */
-.btc {
-  top: 10%;
-  right: 10%;
-}
-
-.eth {
-  bottom: 20%;
-  right: 5%;
-}
-
-.ltc {
-  left: 10%;
-  top: 30%;
-}
-
-.xrp {
-  bottom: 10%;
-  left: 15%;
-}
-
-.usdt {
-  bottom: 5%;
-  right: 30%;
-}
-
-.ada {
-  top: 5%;
-  left: 40%;
-}
-
-/* Floating animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Slow rotation of the entire scene */
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ============ TABLET & IPAD (768px - 1024px) ============ */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .worldmap {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .containermap {
-    width: min(500px, 80vw);
-    height: min(500px, 80vw);
-    margin: 0 auto;
-  }
-
-  .crypto {
-    width: 70px;
-    height: 70px;
-  }
-
-  .crypto img {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-/* ============ MOBILE (426px - 767px) ============ */
-@media (min-width: 426px) and (max-width: 767px) {
-  .worldmap {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .containermap {
-    width: min(400px, 85vw);
-    height: min(400px, 85vw);
-    animation: none;
-    margin: 0 auto;
-  }
-
-  .crypto {
-    width: 60px;
-    height: 60px;
-  }
-
-  .crypto img {
-    width: 35px;
-    height: 35px;
-  }
-
-  /* Adjust crypto positions for smaller screens */
-  .btc {
-    top: 8%;
-    right: 8%;
-  }
-
-  .eth {
-    bottom: 15%;
-    right: 5%;
-  }
-
-  .ltc {
-    left: 8%;
-    top: 25%;
-  }
-
-  .xrp {
-    bottom: 8%;
-    left: 12%;
-  }
-
-  .usdt {
-    bottom: 3%;
-    right: 28%;
-  }
-
-  .ada {
-    top: 3%;
-    left: 35%;
-  }
-}
-
-/* ============ SMALL MOBILE (320px - 425px) ============ */
-@media (max-width: 425px) {
-  .worldmap {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .containermap {
-    width: min(320px, 90vw);
-    height: min(320px, 90vw);
-    animation: none;
-    margin: 0 auto;
-  }
-
-  .world {
-    border-radius: 12px;
-  }
-
-  .world img {
-    border-radius: 12px;
-  }
-
-  .crypto {
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.25);
-  }
-
-  .crypto img {
-    width: 28px;
-    height: 28px;
-  }
-
-  /* Adjust crypto positions for very small screens */
-  .btc {
-    top: 5%;
-    right: 5%;
-  }
-
-  .eth {
-    bottom: 12%;
-    right: 3%;
-  }
-
-  .ltc {
-    left: 5%;
-    top: 20%;
-  }
-
-  .xrp {
-    bottom: 5%;
-    left: 10%;
-  }
-
-  .usdt {
-    bottom: 2%;
-    right: 25%;
-  }
-
-  .ada {
-    top: 2%;
-    left: 30%;
-  }
-}
-
-
-/* ============ EXTRA SMALL MOBILE (Below 320px) ============ */
-@media (max-width: 320px) {
-  .worldmap {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-
-  .containermap {
-    width: 95vw;
-    height: 95vw;
-    max-width: 300px;
-    max-height: 300px;
-  }
-
-  .crypto {
-    width: 45px;
-    height: 45px;
-  }
-
-  .crypto img {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* ---Worldmap step End-- */
 
 /* ============ RESPONSIVE TWEAKS FOR TESTIMONIALS ============ */
 @media (max-width: 768px) {
@@ -1199,14 +875,16 @@ button:hover {
 /* === Each Step Box === */
 .step {
   border: 1px;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   padding: 2rem 1.5rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px;
+  /* box-shadow: 0 4px 15px; */
 }
 
 .step:hover {
   transform: translateY(-8px);
+  box-shadow: 0 4px 15px;
+  color: rgb(96, 37, 37);
 }
 
 .step .icon {
@@ -1236,13 +914,13 @@ button:hover {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     padding: 50px 24px;
-    background-color: #0f1419;
+    background-color: black;
   }
 
   .step {
     padding: 1.75rem 1.25rem;
-    background: rgba(100, 200, 255, 0.08);
-    border: 1px solid rgba(100, 200, 255, 0.2);
+    background-color: black;
+    color: #fff;
   }
 
   .step .icon {
@@ -1270,19 +948,17 @@ button:hover {
     background-color: #0f1419;
   }
 
-  .step {
-    padding: 1.3rem 1rem;
-    border-radius: 10px;
-    background: rgba(100, 200, 255, 0.1);
-    border: 1px solid rgba(100, 200, 255, 0.25);
-  }
+.step {
+  border: 1px;
+  padding: 2rem 1.5rem;
+  transition: all 0.3s ease;
+}
 
-  .step:hover {
-    transform: translateY(-5px);
-    background: rgba(100, 200, 255, 0.15);
-    border-color: rgba(100, 200, 255, 0.4);
-    box-shadow: 0 0 20px rgba(100, 200, 255, 0.15);
-  }
+.step:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 15px;
+  color: rgb(96, 37, 37);
+}
 
   .step .icon {
     font-size: 2rem;
@@ -1299,7 +975,7 @@ button:hover {
   .step p {
     font-size: 0.85rem;
     line-height: 1.4;
-    color: #b3d9ff;
+    color: white;
   }
 
   .step .icon,
@@ -1320,21 +996,17 @@ button:hover {
     background-color: #0f1419;
   }
 
-  .step {
-    padding: 1.1rem 0.9rem;
-    border-radius: 10px;
-    box-sizing: border-box;
-    max-width: 100%;
-    background: rgba(100, 200, 255, 0.1);
-    border: 1px solid rgba(100, 200, 255, 0.25);
-  }
+.step {
+  border: 1px;
+  padding: 2rem 1.5rem;
+  transition: all 0.3s ease;
+}
 
-  .step:hover {
-    transform: translateY(-4px);
-    background: rgba(100, 200, 255, 0.15);
-    border-color: rgba(100, 200, 255, 0.4);
-    box-shadow: 0 0 15px rgba(100, 200, 255, 0.1);
-  }
+.step:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 15px;
+  color: rgb(96, 37, 37);
+}
 
   .step .icon {
     font-size: 1.8rem;
@@ -1351,7 +1023,7 @@ button:hover {
   .step p {
     font-size: 0.8rem;
     line-height: 1.4;
-    color: #b3d9ff;
+    color: white;
   }
 
   .step .icon,
@@ -1396,99 +1068,11 @@ button:hover {
   }
 }
 
-/* Reset body styles */
-/* body {
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  overflow-x: hidden;
-} */
-
-/* Background video section */
-.backgroundSection {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  /* fallback background image for when video is hidden or on slow connections */
-  /* background-image: url('./Image/mobile/bg-video.jpg'); */
-  background-size: cover;
-  background-position: center;
-}
-
-/* Video fills the entire section */
-.backgroundSection video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-/* Make video and its background fit narrow mobile screens without changing visual design */
-@media (max-width: 426px) {
-  .backgroundSection { height: 60vh; }
-  .backgroundSection video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    height: 100%;
-    min-width: auto;
-    min-height: auto;
-    object-fit: cover;
-  }
-  .overlayContent { padding: 0 12px; }
-}
-
-/* Overlay content */
-.overlayContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  color: white;
-  text-align: center;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.overlayContent h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.overlayContent p {
-  font-size: 1.2rem;
-}
-
-/* Responsive text */
-@media (max-width: 768px) {
-  .overlayContent h1 {
-    font-size: 2rem;
-  }
-
-  .overlayContent p {
-    font-size: 1rem;
-  }
-}
-
 
 
 /* <!-- downsection Start--> */
 .downsection {
   font-family: 'Inter', sans-serif;
-  /* background-color: #000; */
-  /* color: #000; */
-  /* padding-bottom: 220px; */
 }
 
 .footer {
@@ -1760,7 +1344,7 @@ body {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin: 20px 40px;
+            margin: 20px 20px;
             background: rgb(96, 37, 37);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -1770,23 +1354,25 @@ body {
         .card {
             flex: 1;
             min-width: 180px;
-            margin: 10px;
+            margin: 20px;
             background: linear-gradient(145deg, #f8f9ff, #ffffff);
             border-radius: 14px;
-            padding: 20px;
+            padding: 20px 15px;
             text-align: center;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .card h3 {
             font-size: 16px;
-            margin-bottom: 5px;
-            color: #555;
+            margin-bottom: 10px;
+            color: #891a1a;
+            font-weight: 600;
         }
 
         .card p {
             font-size: 22px;
-            font-weight: 600;
+            font-weight: 700;
+            color: #333;
         }
 
         .marketvh {
@@ -1823,15 +1409,15 @@ body {
             padding: 6px 12px;
             border: none;
             border-radius: 8px;
-            background: #f2f3f8;
+            background: rgb(96, 37, 37);
             cursor: pointer;
             font-weight: 500;
             white-space: nowrap;
         }
 
         .tabs button.active {
-            background: #dde0ff;
-            color: #222;
+            background: white;
+            color: black;
         }
 
         /* Table */
@@ -1910,27 +1496,28 @@ body {
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin: 16px 12px;
+            margin-top: 80px;
             padding: 12px;
             background: rgb(96, 37, 37);
+            
           }
 
           .stats .card {
-            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            background: linear-gradient(145deg, white);
             padding: 14px 10px;
             margin: 0;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
           }
 
           .card h3 { 
             font-size: 12px;
             margin-bottom: 6px;
-            color: #aaa;
+            color: rgb(96, 37, 37)
           }
           .card p { 
             font-size: 16px;
             font-weight: 700;
-            color: #fff;
+            color: black;
           }
 
           .marketvh {
@@ -1985,6 +1572,7 @@ body {
         @media (max-width: 480px) {
           .stats {
             grid-template-columns: 1fr;
+            margin-top: 70px;
           }
 
           .marketv h2 {
@@ -2053,57 +1641,16 @@ body {
     font-size: 18px !important;
   }
 
-  /* Hero content */
-  .backgroundSection {
-    height: 35vh;
-  }
+  /* stats content */
 
-  .overlayContent h1 {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
-  }
 
-  .overlayContent p {
-    font-size: 0.7rem;
-    display: none;
-  }
 
-  /* Section headers */
-  .option {
-    padding: 12px 8px;
-  }
-
-  .tion {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-    padding-top: 20px;
-  }
-
-  .option P {
-    font-size: 0.75rem;
-    line-height: 1.2;
-  }
-
-  /* Market overview */
-  .marketv h2 {
-    font-size: 1rem;
-    padding: 8px;
-    margin: 12px 0;
-    line-height: 1.3;
-  }
-
-  .marketv span {
-    font-size: 0.7rem;
-    padding: 0 8px;
-    display: block;
-  }
-
-  /* Stats cards */
   .stats {
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
     margin: 8px;
+    margin-top: 60px;
     padding: 8px;
   }
 
@@ -2203,9 +1750,16 @@ body {
 
   .form-input {
     width: 100%;
-    max-width: 100px;
-    padding: 6px;
-    font-size: 0.8rem;
+    max-width: 120px;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+  }
+
+  .form-input:focus {
+    background: #5e3fc9;
+    color: white;
+    border-color: #5e3fc9;
   }
 
   .form-info {
@@ -2213,7 +1767,16 @@ body {
   }
 
   .form-equal {
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .form-wrap {
+    width: 100%;
+  }
+
+  .select-currency {
+    width: 100%;
+    max-width: 120px;
   }
 
   .info {
@@ -2289,89 +1852,7 @@ body {
     font-size: 0.7rem;
   }
 
-  /* Worldmap */
-  .worldmap {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
 
-  .containermap {
-    width: min(220px, 95vw);
-    height: min(220px, 95vw);
-    animation: none;
-  }
-
-  .crypto {
-    width: 35px;
-    height: 35px;
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .crypto img {
-    width: 18px;
-    height: 18px;
-  }
-
-  /* Adjust positions for smartwatch */
-  .btc {
-    top: 10%;
-    right: 10%;
-  }
-
-  .eth {
-    bottom: 15%;
-    right: 5%;
-  }
-
-  .ltc {
-    left: 10%;
-    top: 25%;
-  }
-
-  .xrp {
-    bottom: 10%;
-    left: 10%;
-  }
-
-  .usdt {
-    bottom: 5%;
-    right: 25%;
-  }
-
-  .ada {
-    top: 5%;
-    left: 25%;
-  }
-
-  /* Steps section */
-  .steps {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 16px 8px;
-  }
-
-  .step {
-    padding: 10px 8px;
-    border-radius: 6px;
-    box-shadow: none;
-    border: 1px solid rgba(100, 200, 255, 0.2);
-  }
-
-  .step .icon {
-    font-size: 1.4rem;
-    margin-bottom: 4px;
-  }
-
-  .step h3 {
-    font-size: 0.8rem;
-    letter-spacing: 0;
-    margin-bottom: 2px;
-  }
-
-  .step p {
-    font-size: 0.65rem;
-    line-height: 1.2;
-  }
 
   /* Footer */
   .footer {

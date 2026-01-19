@@ -8,11 +8,11 @@
     align-items: center;
     min-height: 100vh;
     /* margin-top: 80px; */
-    margin-top: -160px;
+    margin-top: 80px;
 }
 
 body {
-    background-image: url("./Image/mobile/1920_x_988.jpg");
+    background-color: black;
     height: 100vh;
     background-position: center;
     background-size: cover;
@@ -52,7 +52,7 @@ header nav ul li a {
 
 .botton:hover a {
     color: white;
-    background-color: rgb(81, 78, 74);
+    background-color: rgb(13, 13, 13);
 }
 
 sup {
@@ -338,7 +338,7 @@ body .grecaptcha-badge {
 /* ============ DESKTOP STYLES (1025px and above) ============ */
 @media (min-width: 1025px) {
     .body {
-        margin-top: -480px;
+        margin-top: 80px;
         margin-bottom: 80px;
         min-height: 100vh;
     }
@@ -349,26 +349,26 @@ body .grecaptcha-badge {
     }
 
     .container {
-        width: 90%;
-        max-width: 850px;
-        padding: 50px 45px;
+        width: 85%;
+        max-width: 950px;
+        padding: 50px 55px;
         background-color: rgba(96, 37, 37, 0.95);
         border-radius: 12px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .tab-buttons {
-        margin-bottom: 25px;
+        margin-bottom: 28px;
     }
 
     .tab-buttons button {
         font-size: 18px;
-        padding: 12px 25px;
+        padding: 13px 28px;
         font-weight: 500;
     }
 
     .input-group {
-        margin-bottom: 18px;
+        margin-bottom: 20px;
     }
 
     .input-group label {
@@ -378,27 +378,27 @@ body .grecaptcha-badge {
 
     .input-group input,
     .input-group select {
-        padding: 12px 14px;
+        padding: 13px 14px;
         font-size: 15px;
     }
 
     .input-row {
-        gap: 18px;
+        gap: 20px;
     }
 
     .input-row .input-group {
-        flex: 1 1 calc(50% - 9px);
+        flex: 1 1 calc(33.333% - 13px);
     }
 
     .checkbox-group {
         font-size: 14px;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
     }
 
     .btn {
         font-size: 16px;
-        padding: 14px;
-        margin-top: 10px;
+        padding: 15px;
+        margin-top: 12px;
     }
 
     .btn:hover {
@@ -407,17 +407,17 @@ body .grecaptcha-badge {
     }
 
     .options {
-        margin: 15px 0 20px 0;
+        margin: 16px 0 22px 0;
     }
 
     .captcha-container {
-        margin: 20px 0;
+        margin: 22px 0;
     }
 
     .signin-text,
     .signup-text {
         font-size: 13px;
-        margin-top: 15px;
+        margin-top: 16px;
     }
 
     header nav {
@@ -434,7 +434,7 @@ body .grecaptcha-badge {
 /* ============ TABLET / IPAD STYLES (769px - 1024px) ============ */
 @media (min-width: 769px) and (max-width: 1024px) {
     .body {
-        margin-top: -800px;
+        margin-top: 60px;
         margin-bottom: 60px;
         min-height: auto;
         padding-top: 0;
@@ -448,9 +448,9 @@ body .grecaptcha-badge {
     }
 
     .container {
-        width: 88%;
-        max-width: 720px;
-        padding: 40px 35px;
+        width: 85%;
+        max-width: 780px;
+        padding: 45px 40px;
         background-color: rgba(96, 37, 37, 0.96);
         border-radius: 12px;
         backdrop-filter: blur(8px);
@@ -459,16 +459,16 @@ body .grecaptcha-badge {
     }
 
     .tab-buttons {
-        margin-bottom: 22px;
+        margin-bottom: 24px;
     }
 
     .tab-buttons button {
-        font-size: 16px;
-        padding: 11px 20px;
+        font-size: 17px;
+        padding: 12px 22px;
     }
 
     .input-group {
-        margin-bottom: 15px;
+        margin-bottom: 16px;
     }
 
     .input-group label {
@@ -479,46 +479,46 @@ body .grecaptcha-badge {
 
     .input-group input,
     .input-group select {
-        padding: 11px;
+        padding: 12px;
         font-size: 15px;
         border-radius: 5px;
     }
 
     .input-row {
-        gap: 14px;
+        gap: 15px;
         flex-wrap: wrap;
     }
 
     .input-row .input-group {
-        flex: 1 1 calc(50% - 7px);
-        min-width: 150px;
+        flex: 1 1 calc(50% - 7.5px);
+        min-width: 140px;
     }
 
     .checkbox-group {
         font-size: 13px;
         gap: 9px;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
     }
 
     .btn {
         font-size: 15px;
-        padding: 12px;
-        margin-top: 8px;
+        padding: 13px;
+        margin-top: 10px;
     }
 
     .options {
-        margin: 14px 0 18px 0;
+        margin: 15px 0 20px 0;
         font-size: 13px;
     }
 
     .captcha-container {
-        margin: 18px 0;
+        margin: 20px 0;
     }
 
     .signin-text,
     .signup-text {
         font-size: 13px;
-        margin-top: 12px;
+        margin-top: 14px;
     }
 
     header nav {

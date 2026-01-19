@@ -1,23 +1,3 @@
-// // Language logic is handled by `language.js` which exposes `window.initLanguageSelector()`
-// if (window.initLanguageSelector && typeof window.initLanguageSelector === 'function') {
-//   try { window.initLanguageSelector(); } catch (e) { console.warn('initLanguageSelector failed', e); }
-// }
-
-// Currency selector (defensive)
-const currencySel = document.getElementById('currency') || document.getElementById('currency-select');
-if (currencySel) {
-  currencySel.addEventListener('change', e => {
-    localStorage.setItem('currency', e.target.value);
-    location.reload();
-  });
-}
-
-function setTheme(mode) {
-  document.documentElement.setAttribute('data-theme', mode);
-  localStorage.setItem('theme', mode);
-}
-
-
 /* <!-- downsection Start--> */
 // Example dynamic feature — add hover animations to social icons
 document.querySelectorAll('.socials i').forEach(icon => {
@@ -65,7 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Global Market Overview - optimized with market-performance.js
-let coinsData = [];
+// Use window.coinsData which is set by market-performance.js
+// Initialize only if not already set by market-performance.js
+if (!window.coinsData) {
+    window.coinsData = [];
+}
 
 // Initialize table search and filtering after coins data is loaded
 function initializeTableFilters() {
@@ -74,7 +58,7 @@ function initializeTableFilters() {
     if (searchInput) {
         searchInput.addEventListener("input", (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = coinsData.filter(c => 
+            const filtered = window.coinsData.filter(c => 
                 c.name.toLowerCase().includes(term) || 
                 c.symbol.toLowerCase().includes(term)
             );
@@ -86,13 +70,13 @@ function initializeTableFilters() {
     document.querySelectorAll("th[data-sort]").forEach(th => {
         th.addEventListener("click", () => {
             const key = th.getAttribute("data-sort");
-            coinsData.sort((a, b) => {
+            window.coinsData.sort((a, b) => {
                 if (typeof a[key] === "string") {
                     return a[key].localeCompare(b[key]);
                 }
                 return b[key] - a[key];
             });
-            renderTableRows(coinsData);
+            renderTableRows(window.coinsData);
         });
     });
 
@@ -103,9 +87,26 @@ function initializeTableFilters() {
             btn.classList.add("active");
             const filter = btn.dataset.filter;
 
-            let filtered = [...coinsData];
-            if (filter === "gainers") filtered = coinsData.filter(c => c.change > 5);
-            if (filter === "roi") filtered = coinsData.filter(c => parseFloat(c.roi) > 1.5);
+            let filtered = [...window.coinsData];
+            
+            // "Recent" shows all coins (default/unfiltered)
+            if (filter === "recent") {
+                filtered = [...window.coinsData];
+            }
+            // "Gainers" shows coins with positive 24h change, sorted by best performers
+            else if (filter === "gainers") {
+                filtered = window.coinsData
+                    .filter(c => c.change > 0)
+                    .sort((a, b) => b.change - a.change);
+            }
+            // "ROI" shows all coins sorted by highest ROI
+            else if (filter === "roi") {
+                filtered = [...window.coinsData].sort((a, b) => {
+                    const roiA = parseFloat(a.roi);
+                    const roiB = parseFloat(b.roi);
+                    return roiB - roiA;
+                });
+            }
 
             renderTableRows(filtered);
         });
@@ -157,3 +158,147 @@ document.querySelectorAll(".star").forEach(btn => {
         }
     });
 });
+
+// ============= BITCOIN CALCULATOR =============
+// Real-time Bitcoin to Currency converter using live prices
+(function initBitcoinCalculator() {
+    const btcInput = document.getElementById('btc-value');
+    const currencyInput = document.getElementById('currency-value');
+    const currencySelect = document.getElementById('currency-select');
+    
+    if (!btcInput || !currencyInput || !currencySelect) return;
+
+    // Store Bitcoin prices in memory
+    let bitcoinPrices = {};
+    let lastFetchTime = 0;
+    const CACHE_DURATION = 5 * 60 * 1000; // Cache for 5 minutes
+    const CACHE_KEY = 'btc_prices_cache';
+
+    // Fetch Bitcoin prices with CORS proxy fallback
+    async function fetchBitcoinPrices() {
+        const now = Date.now();
+        
+        // Check memory cache first
+        if (bitcoinPrices && Object.keys(bitcoinPrices).length > 0 && now - lastFetchTime < CACHE_DURATION) {
+            return bitcoinPrices;
+        }
+
+        // Check localStorage cache
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (cachedData) {
+            try {
+                const parsed = JSON.parse(cachedData);
+                if (parsed.timestamp && now - parsed.timestamp < CACHE_DURATION) {
+                    bitcoinPrices = parsed.data;
+                    lastFetchTime = parsed.timestamp;
+                    return bitcoinPrices;
+                }
+            } catch (e) {
+                console.debug('Cache parse error:', e);
+            }
+        }
+
+        try {
+            const currencies = ['usd', 'eur', 'gbp', 'cad', 'jpy'];
+            const apiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currencies.join(',')}`;
+            
+            // Try direct fetch first
+            let response = await Promise.race([
+                fetch(apiUrl),
+                new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000))
+            ]);
+            
+            if (!response.ok) throw new Error('Direct fetch failed');
+            
+            const data = await response.json();
+            bitcoinPrices = data.bitcoin || {};
+            lastFetchTime = now;
+            
+            // Cache to localStorage
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+                data: bitcoinPrices,
+                timestamp: now
+            }));
+            
+            return bitcoinPrices;
+        } catch (error) {
+            console.debug('Bitcoin calculator fetch error:', error.message);
+            
+            // Try CORS proxy as fallback
+            try {
+                const corsProxy = 'https://api.allorigins.win/raw?url=';
+                const apiUrl = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,eur,gbp,cad,jpy`;
+                const proxyUrl = corsProxy + encodeURIComponent(apiUrl);
+                
+                const response = await Promise.race([
+                    fetch(proxyUrl),
+                    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000))
+                ]);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    bitcoinPrices = data.bitcoin || {};
+                    lastFetchTime = now;
+                    
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({
+                        data: bitcoinPrices,
+                        timestamp: now
+                    }));
+                    
+                    return bitcoinPrices;
+                }
+            } catch (proxyError) {
+                console.debug('CORS proxy fallback also failed');
+            }
+            
+            // Final fallback: use localStorage if available
+            const fallbackData = localStorage.getItem(CACHE_KEY);
+            if (fallbackData) {
+                try {
+                    const parsed = JSON.parse(fallbackData);
+                    bitcoinPrices = parsed.data;
+                    return bitcoinPrices;
+                } catch (e) {
+                    console.debug('Fallback cache parse error');
+                }
+            }
+            
+            // Last resort: hardcoded fallback prices
+            return {
+                usd: 42000,
+                eur: 38500,
+                gbp: 33000,
+                cad: 57000,
+                jpy: 6200000
+            };
+        }
+    }
+
+    // Convert BTC to selected currency
+    async function convertBTC() {
+        const btcAmount = parseFloat(btcInput.value) || 0;
+        const selectedCurrency = currencySelect.value.toLowerCase();
+
+        const prices = await fetchBitcoinPrices();
+        const price = prices[selectedCurrency] || 0;
+        const convertedAmount = (btcAmount * price).toFixed(2);
+
+        currencyInput.value = convertedAmount;
+    }
+
+    // Add event listeners
+    btcInput.addEventListener('input', convertBTC);
+    currencySelect.addEventListener('change', convertBTC);
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async () => {
+        await fetchBitcoinPrices();
+        convertBTC();
+    });
+
+    // Also run if DOM is already loaded
+    if (document.readyState !== 'loading') {
+        fetchBitcoinPrices();
+        convertBTC();
+    }
+})();

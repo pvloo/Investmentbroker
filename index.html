@@ -7,76 +7,16 @@
   <title>Rivertrade</title>
 
   <!-- Font Awesome Icons (async) -->
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
 
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="lang-style/language.css">
+  <link rel="stylesheet" href="language.css">
   <link rel="stylesheet" href="scroll-behavior.css">
 
-  <style>
-    /* Make TradingView widget responsive */
-    .tradingview-widget-container { 
-      width: 100%; 
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      background: rgb(96, 37, 37);
-      overflow: visible;
-    }
 
-    .tradingview-widget-container iframe { 
-      width: 100% !important;
-      display: block;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    /* Mobile styles (up to 768px) - Faster loading */
-    @media (max-width: 768px) {
-      .tradingview-widget-container {
-        margin-top: 60px;
-        padding: 0;
-        min-height: 50px;
-        contain: layout style paint;
-      }
-
-      .tradingview-widget-container iframe {
-        height: 50px !important;
-        min-height: 50px !important;
-      }
-    }
-
-    /* Tablet/iPad styles (768px to 1024px) */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .tradingview-widget-container {
-        margin-top: 20px;
-        padding: 0;
-        min-height: 60px;
-        contain: layout style paint;
-      }
-
-      .tradingview-widget-container iframe {
-        height: 60px !important;
-        min-height: 60px !important;
-      }
-    }
-
-    /* Desktop styles (1025px and above) */
-    @media (min-width: 1025px) {
-      .tradingview-widget-container {
-        padding: 0;
-        min-height: 60px;
-        contain: layout style paint;
-      }
-
-      .tradingview-widget-container iframe {
-        height: 60px !important;
-        min-height: 60px !important;
-      }
-    }
-  </style>
 
 </head>
 
@@ -84,12 +24,6 @@
 
   <header>
 
-
-       <!-- TradingView Widget BEGIN (Lazy Loaded) -->
-    <div class="tradingview-widget-container" data-lazy-tradingview>
-      <div class="tradingview-widget-container__widget"></div>
-    </div>
-    <!-- TradingView Widget END (loads on scroll) -->
     <nav>
       <img src="./icoinred/logo-88256519050c5e84fcbd2120a81b2097.svg" alt="">
       <ul>
@@ -99,33 +33,7 @@
       </ul>
     </nav>
 
-
-    <div class="backgroundSection">
-      <video id="heroVideo" aria-label="River" loop muted playsinline preload="none">
-        <source media="(max-width: 426px)" src="./Image/mobile/rivertrade_Homepage.webm" type="video/webm" />
-        <source media="(max-width: 768px)" src="./Image/mobile/rivertrade_Homepage.webm" type="video/webm" />
-        <source src="./Image/mobile/rivertrade_Homepage.webm" type="video/webm" />
-        Your browser does not support the video tag.
-      </video>
-
-      <!-- Optional overlay text or call to action -->
-      <div class="overlayContent">
-        <h1>Welcome to RiverTrade</h1>
-        <p>Flow with the best trade opportunities</p>
-      </div>
-    </div>
-    <!-- <h1></h1> -->
   </header>
-  <div class="option">
-    <h2 class="tion">Popular Cryptocurrencies</h2>
-    <P>Track and trade the most popular cryptocurrencies with real-time data and advanced tools</P>
-  </div>
-          <!-- Crypto Market Overview -->
-
-          <div class="marketv">
-                    <h2 class="marketv">Crypto Market Overview – <span id="date"></span></h2>
-        <span id="overview"></span>
-          </div>
 
 
     <div class="stats">
@@ -268,8 +176,8 @@
                 <option value="usd">USD</option>
                 <option value="eur">EUR</option>
                 <option value="gbp">GBP</option>
-                <option value="ngn">CAD</option>
-                <option value="cad">JPY</option>
+                <option value="cad">CAD</option>
+                <option value="jpy">JPY</option>
               </select>
             </div>
           </form>
@@ -505,35 +413,7 @@
       </div>
   </section>
 
-  <!--world map Start -->
-  <section class="worldmap">
-    <div class="containermap">
-      <div class="world">
-        <img src="./Image/mobile/world-map.pngimg.png" alt="World Map">
-      </div>
-
-      <!-- Cryptocurrency icons -->
-      <div class="crypto btc">
-        <img src="./Icons/bitcoin icons/bitcoin-btc@2x.png.webp" alt="Bitcoin">
-      </div>
-      <div class="crypto eth">
-        <img src="./Icons/bitcoin icons/ethereum@2x.png.webp" alt="Ethereum">
-      </div>
-      <div class="crypto ltc">
-        <img src="./Icons/bitcoin icons/litecoin@2x.png.webp" alt="Litecoin">
-      </div>
-      <div class="crypto xrp">
-        <img src="./Icons/bitcoin icons/xrp@2x.png.webp" alt="XRP">
-      </div>
-      <div class="crypto usdt">
-        <img src="./Icons/bitcoin icons/tether-usdt@2x.png.webp" alt="Tether">
-      </div>
-      <div class="crypto ada">
-        <img src="./Icons/bitcoin icons/usd-coin@2x.png.webp" alt="usdcoin">
-      </div>
-    </div>
-  </section>
-  <!--world map End -->
+  
 
 
   <!-- /*--Steps Section Start --*/ -->
@@ -617,7 +497,6 @@
           <h3>Product</h3>
           <ul>
             <li><a href="#packages1">Invest</a></li>
-            <li><a href="chatbot.html#Chatbot">Chatbot</a></li>
             <!-- <li><a href="#">Futures</a></li> -->
           </ul>
         </div>
@@ -654,9 +533,9 @@
   <!-- downsection End-->
 
 
-  <script src="bitcoin-calculator-section.js"></script>
+
   <script src="tradingview-loader.js"></script>
-  <script src="lang-style/language.js"></script>
+  <script src="language.js"></script>
   <script src="market-performance.js"></script>
   <script src="main.js"></script>
   <script src="hero-video.js"></script>

@@ -5,16 +5,21 @@
   box-sizing: border-box;
 }
 
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
-  --primary-color: #5e3fc9;
-  --secondary-color: #6c5ce7;
+  --primary-color: #1d0d6a;
+  --secondary-color: #0080ff;
   --success-color: #00b894;
   --warning-color: #fdcb6e;
   --danger-color: #d63031;
   --info-color: #0984e3;
   --dark: #2d3436;
   --dark-alt: #1e272e;
-  --light: #f8f9fa;
+  --light: #ffffff;
   --border: #e1e8ed;
   --text-primary: #2d3436;
   --text-secondary: #636e72;
@@ -562,7 +567,7 @@ body {
 }
 
 .stat-icon.purple {
-  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  background: linear-gradient(135deg, #0080ff 0%, #66b3ff 100%);
   color: white;
 }
 

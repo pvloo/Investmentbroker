@@ -29,7 +29,15 @@ class MarketPerformanceOptimizer {
    */
   setupLazyLoading() {
     const marketSection = document.querySelector('.marketvh');
-    if (!marketSection && typeof IntersectionObserver === 'undefined') return;
+    
+    // Always fetch data immediately if visible, don't wait for intersection
+    if (marketSection && marketSection.offsetParent !== null) {
+      // Element is visible on page load
+      this.fetchDashboardOptimized();
+      return;
+    }
+
+    if (!marketSection || typeof IntersectionObserver === 'undefined') return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -40,7 +48,7 @@ class MarketPerformanceOptimizer {
           }
         });
       },
-      { rootMargin: '50px' }
+      { rootMargin: '100px' }
     );
 
     if (marketSection) {
@@ -57,14 +65,21 @@ class MarketPerformanceOptimizer {
   }
 
   /**
-   * Prefetch data on idle time (requestIdleCallback)
+   * Prefetch data on idle time (requestIdleCallback) with immediate init
    */
   prefetchOnIdle() {
+    // Initialize immediately with cached data if available
+    const cached = this.getCache(this.CACHE_KEY);
+    if (cached && !this.isCacheExpired(cached.timestamp)) {
+      // Data already rendered by setupLazyLoading
+      return;
+    }
+
+    // Prefetch in background after short delay
     if (typeof requestIdleCallback !== 'undefined') {
-      requestIdleCallback(() => this.warmCache(), { timeout: 5000 });
+      requestIdleCallback(() => this.warmCache(), { timeout: 2000 });
     } else {
-      // Fallback for browsers without requestIdleCallback
-      setTimeout(() => this.warmCache(), 3000);
+      setTimeout(() => this.warmCache(), 1000);
     }
   }
 
@@ -136,19 +151,28 @@ class MarketPerformanceOptimizer {
   }
 
   /**
-   * Optimized dashboard fetch with caching
+   * Optimized dashboard fetch with caching - shows cache immediately
    */
   async fetchDashboardOptimized(isBackground = false) {
     if (!isBackground && this.isLoading) return;
 
-    // Check if we have fresh cache
+    // Check if we have cache and show it immediately
     const cached = this.getCache(this.CACHE_KEY);
     if (cached && !this.isCacheExpired(cached.timestamp)) {
-      this.renderDashboard(cached.data, true); // Render from cache immediately
+      this.renderDashboard(cached.data, true); // Render from cache immediately - no loading state
+      // Still refresh in background if cache is older than 2 minutes
+      if (!isBackground && (Date.now() - cached.timestamp > 2 * 60 * 1000)) {
+        this.deduplicateRequest('dashboard-bg', () =>
+          this.fetchDashboardData().then(data => {
+            this.setCache(this.CACHE_KEY, data);
+            this.renderDashboard(data, false);
+          }).catch(e => console.debug('Background refresh failed', e))
+        );
+      }
       return;
     }
 
-    // Show skeleton loaders if not in background
+    // Show skeleton loaders only if we have no cache
     if (!isBackground) {
       this.showSkeletonLoaders();
       this.isLoading = true;
@@ -168,7 +192,10 @@ class MarketPerformanceOptimizer {
     } catch (error) {
       if (!isBackground) {
         console.error('Failed to fetch dashboard data:', error);
-        this.showError('Failed to load market data. Please try again.');
+        // Only show error if we have no cache at all
+        if (!cached) {
+          this.showError('Failed to load market data. Please try again.');
+        }
       }
     } finally {
       if (!isBackground) {
@@ -178,31 +205,79 @@ class MarketPerformanceOptimizer {
   }
 
   /**
-   * Fetch dashboard data with parallel requests
+   * Fetch dashboard data with parallel requests and CORS proxy fallback
    */
   async fetchDashboardData() {
-    const [globalRes, coinsRes] = await Promise.all([
-      fetch(`${this.API_BASE}/global?localization=false`),
-      fetch(
-        `${this.API_BASE}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&locale=en`
-      )
-    ]);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000); // 8 second timeout
 
-    if (!globalRes.ok || !coinsRes.ok) {
-      throw new Error('API request failed');
+    try {
+      // Try direct fetch first
+      const [globalRes, coinsRes] = await Promise.all([
+        fetch(`${this.API_BASE}/global?localization=false`, { signal: controller.signal }),
+        fetch(
+          `${this.API_BASE}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&locale=en`,
+          { signal: controller.signal }
+        )
+      ]);
+
+      if (!globalRes.ok || !coinsRes.ok) {
+        throw new Error('API request failed');
+      }
+
+      const [global, coins] = await Promise.all([
+        globalRes.json(),
+        coinsRes.json()
+      ]);
+
+      // Format the data once
+      return {
+        global: this.formatGlobalData(global.data),
+        coins: this.formatCoinsData(coins),
+        timestamp: Date.now()
+      };
+    } catch (error) {
+      console.debug('Direct API fetch failed, trying CORS proxy:', error.message);
+      
+      // Try CORS proxy fallback
+      try {
+        const corsProxy = 'https://api.allorigins.win/raw?url=';
+        const globalUrl = corsProxy + encodeURIComponent(`${this.API_BASE}/global?localization=false`);
+        const coinsUrl = corsProxy + encodeURIComponent(
+          `${this.API_BASE}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&locale=en`
+        );
+
+        clearTimeout(timeout);
+        const timeout2 = setTimeout(() => controller.abort(), 10000);
+
+        const [globalRes, coinsRes] = await Promise.all([
+          fetch(globalUrl, { signal: controller.signal }),
+          fetch(coinsUrl, { signal: controller.signal })
+        ]);
+
+        if (!globalRes.ok || !coinsRes.ok) {
+          throw new Error('CORS proxy request failed');
+        }
+
+        const [global, coins] = await Promise.all([
+          globalRes.json(),
+          coinsRes.json()
+        ]);
+
+        clearTimeout(timeout2);
+
+        return {
+          global: this.formatGlobalData(global.data),
+          coins: this.formatCoinsData(coins),
+          timestamp: Date.now()
+        };
+      } catch (proxyError) {
+        console.debug('CORS proxy also failed:', proxyError.message);
+        throw new Error('Failed to fetch data from both direct API and CORS proxy');
+      }
+    } finally {
+      clearTimeout(timeout);
     }
-
-    const [global, coins] = await Promise.all([
-      globalRes.json(),
-      coinsRes.json()
-    ]);
-
-    // Format the data once
-    return {
-      global: this.formatGlobalData(global.data),
-      coins: this.formatCoinsData(coins),
-      timestamp: Date.now()
-    };
   }
 
   /**
@@ -295,56 +370,55 @@ class MarketPerformanceOptimizer {
     const tbody = document.querySelector('#projects tbody');
     if (!tbody) return;
 
-    const fragment = document.createDocumentFragment();
-    const rows = coins
+    // Use innerHTML with template for better performance
+    const html = coins
       .slice(0, 50)
-      .map(c => this.createTableRow(c));
-
-    rows.forEach(row => fragment.appendChild(row));
+      .map(c => `
+      <tr>
+        <td>
+          <img src="${c.image}" alt="${c.name}" loading="lazy" decoding="async" style="width:24px;height:24px;margin-right:8px;border-radius:50%;vertical-align:middle;" />
+          ${c.name}
+        </td>
+        <td>${c.rank}</td>
+        <td>$${c.price.toLocaleString()}</td>
+        <td class="${c.change >= 0 ? 'positive' : 'negative'}">${c.change.toFixed(2)}%</td>
+        <td>${c.roi}</td>
+        <td>$${(c.marketcap / 1e9).toFixed(2)}B</td>
+      </tr>
+    `)
+      .join('');
 
     // Single DOM update
-    tbody.innerHTML = '';
-    tbody.appendChild(fragment);
+    tbody.innerHTML = html;
 
-    // Enable lazy loading for images
-    this.setupImageLazyLoading();
+    // Enable lazy loading for images after render
+    requestAnimationFrame(() => this.setupImageLazyLoading());
   }
 
   /**
-   * Create optimized table row
-   */
-  createTableRow(c) {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>
-        <img src="${c.image}" alt="${c.name}" loading="lazy" style="width:24px;height:24px;margin-right:8px;border-radius:50%;vertical-align:middle;" />
-        ${c.name}
-      </td>
-      <td>${c.rank}</td>
-      <td>$${c.price.toLocaleString()}</td>
-      <td class="${c.change >= 0 ? 'positive' : 'negative'}">${c.change.toFixed(2)}%</td>
-      <td>${c.roi}</td>
-      <td>$${(c.marketcap / 1e9).toFixed(2)}B</td>
-    `;
-    return tr;
-  }
-
-  /**
-   * Setup lazy loading for table images
+   * Setup lazy loading for table images - use native browser lazy loading
    */
   setupImageLazyLoading() {
+    // Modern browsers support native lazy loading via 'loading="lazy"' attribute
+    // If IntersectionObserver available, use it for unsupported browsers
     if (typeof IntersectionObserver !== 'undefined') {
       const images = document.querySelectorAll('#projects img[loading="lazy"]');
-      const observer = new IntersectionObserver((entries) => {
+      if (images.length === 0) return;
+
+      const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = img.src; // Trigger load
+            // Force load for browsers without native lazy loading support
+            if (img.dataset.src && !img.src.startsWith('data:')) {
+              img.src = img.dataset.src;
+            }
             observer.unobserve(img);
           }
         });
-      });
-      images.forEach(img => observer.observe(img));
+      }, { rootMargin: '50px' });
+
+      images.forEach(img => imageObserver.observe(img));
     }
   }
 
