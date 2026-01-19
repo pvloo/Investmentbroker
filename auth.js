@@ -48,9 +48,7 @@ registerTab.addEventListener("click", () => {
   loginTab.classList.remove("active");
   registerForm.classList.add("active");
   loginForm.classList.remove("active");
-  // Reset forms when switching tabs
-  registerForm.reset();
-  loginForm.reset();
+  // Clear messages only
   resetMessages();
 });
 
@@ -59,9 +57,7 @@ loginTab.addEventListener("click", () => {
   registerTab.classList.remove("active");
   loginForm.classList.add("active");
   registerForm.classList.remove("active");
-  // Reset forms when switching tabs
-  registerForm.reset();
-  loginForm.reset();
+  // Clear messages only
   resetMessages();
 });
 
@@ -71,6 +67,20 @@ function resetMessages() {
   const loginMsgEl = document.getElementById('loginMessage');
   if (msgEl) msgEl.textContent = '';
   if (loginMsgEl) loginMsgEl.textContent = '';
+}
+
+function resetRecaptchas() {
+  if (window.grecaptcha) {
+    try {
+      document.querySelectorAll('.g-recaptcha').forEach((el, idx) => {
+        if (el.hasAttribute('data-widget-id')) {
+          window.grecaptcha.reset(parseInt(el.getAttribute('data-widget-id')));
+        }
+      });
+    } catch (err) {
+      console.warn('Error resetting reCAPTCHA:', err);
+    }
+  }
 }
 
 function showError(messageEl, message) {
@@ -224,7 +234,7 @@ registerForm.addEventListener("submit", async (e) => {
   }
 
   // Verify reCAPTCHA
-  if (!verifyRecaptcha()) {
+  if (!verifyRecaptcha('registerForm')) {
     showError(msgEl, 'Please complete the reCAPTCHA verification (check the box).');
     return;
   }
@@ -304,7 +314,7 @@ loginForm.addEventListener("submit", async (e) => {
   }
 
   // Verify reCAPTCHA
-  if (!verifyRecaptcha()) {
+  if (!verifyRecaptcha('loginForm')) {
     showError(msgEl, 'Please complete the reCAPTCHA verification (check the box).');
     return;
   }
@@ -385,6 +395,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // ============ reCAPTCHA Initialization ============
 (function () {
+  let recaptchasRendered = false;
+  
   // Find all reCAPTCHA containers
   const recaptchaElements = document.querySelectorAll('.captcha-container .g-recaptcha');
   
@@ -393,12 +405,17 @@ window.addEventListener('DOMContentLoaded', () => {
   // Initialize each reCAPTCHA element
   function renderRecaptcha(element) {
     try {
+      // Skip if already rendered
+      if (element.hasAttribute('data-widget-id')) {
+        console.log('reCAPTCHA already rendered for ' + element.id);
+        return;
+      }
+
       if (!element.id) {
         element.id = 'g-recaptcha-' + Math.random().toString(36).slice(2, 9);
       }
       
       if (window.grecaptcha && typeof grecaptcha.render === 'function') {
-        element.innerHTML = ''; // Clear any existing content
         // Use production site key from data attribute
         const prodSiteKey = element.getAttribute('data-prod-sitekey');
         const siteKey = prodSiteKey || element.getAttribute('data-sitekey');
@@ -406,11 +423,13 @@ window.addEventListener('DOMContentLoaded', () => {
           console.error('No reCAPTCHA site key configured for ' + element.id);
           return;
         }
-        grecaptcha.render(element.id, {
+        // Store widget ID for later verification
+        const widgetId = grecaptcha.render(element.id, {
           sitekey: siteKey,
           theme: 'dark'
         });
-        console.log('reCAPTCHA rendered for ' + element.id);
+        element.setAttribute('data-widget-id', widgetId);
+        console.log('reCAPTCHA rendered for ' + element.id + ' with widget ID: ' + widgetId);
       }
     } catch (err) {
       console.error('Failed to render reCAPTCHA:', err);
@@ -426,13 +445,21 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Render all reCAPTCHA elements
+  // Render all reCAPTCHA elements only once
   waitForGrecaptcha(() => {
-    recaptchaElements.forEach(renderRecaptcha);
+    if (!recaptchasRendered) {
+      recaptchaElements.forEach(renderRecaptcha);
+      recaptchasRendered = true;
+    }
   });
 
-  // Also try rendering on page load
+  // Fallback: if page load event fires before grecaptcha loads
   window.addEventListener('load', () => {
-    recaptchaElements.forEach(renderRecaptcha);
+    if (!recaptchasRendered) {
+      waitForGrecaptcha(() => {
+        recaptchaElements.forEach(renderRecaptcha);
+        recaptchasRendered = true;
+      });
+    }
   });
 })();
